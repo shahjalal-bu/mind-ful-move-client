@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import ActiveLink from "../components/ActiveLink";
 import logo from "../assets/logo.png";
@@ -9,6 +9,62 @@ const Navbar = () => {
   const { displayName, photoURL } = currentUser || {};
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const navbarItems = ["Home", "Instructors", "Classes", "Dashboard"];
+
+  //for desktop
+  const desktopNavigation = navbarItems.map((item, index) => (
+    <Fragment key={index}>
+      {index !== 0 && (
+        <li className="text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            className="w-4 h-4 current-fill"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+            />
+          </svg>
+        </li>
+      )}
+      <li>
+        {item === "Home" ? (
+          <ActiveLink to="/">{item}</ActiveLink>
+        ) : (
+          <ActiveLink to={`/${item.toLowerCase()}`}>{item}</ActiveLink>
+        )}
+      </li>
+    </Fragment>
+  ));
+  //for mobile
+
+  const mobileNavigation = navbarItems.map((item, index) => (
+    <Fragment key={index}>
+      <li className="mb-1">
+        {item === "Home" ? (
+          <ActiveLink
+            className="block p-4 text-sm font-semibold hover:bg-blue-50  rounded"
+            to="/"
+          >
+            {item}
+          </ActiveLink>
+        ) : (
+          <ActiveLink
+            className="block p-4 text-sm font-semibold hover:bg-blue-50  rounded"
+            to={`/${item.toLowerCase()}`}
+          >
+            {item}
+          </ActiveLink>
+        )}
+      </li>
+    </Fragment>
+  ));
+
   return (
     <>
       <nav className="relative  py-4 flex justify-between items-center bg-white container mx-auto px-5 sm:px-20">
@@ -31,85 +87,7 @@ const Navbar = () => {
           </button>
         </div>
         <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2  lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
-          <li>
-            <a href="/#sub">Home</a>
-          </li>
-          <li className="text-gray-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              className="w-4 h-4 current-fill"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-          </li>
-          <li>
-            <ActiveLink to="/admin/allproducts">All Toys</ActiveLink>
-          </li>
-          <li className="text-gray-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              className="w-4 h-4 current-fill"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-          </li>
-          <li>
-            <ActiveLink to="/admin/myproducts">My Toys</ActiveLink>
-          </li>
-          <li className="text-gray-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              className="w-4 h-4 current-fill"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-          </li>
-          <li>
-            <ActiveLink to="/admin/addproduct">Add Toy</ActiveLink>
-          </li>
-          <li className="text-gray-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              className="w-4 h-4 current-fill"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-              />
-            </svg>
-          </li>
-          <li>
-            <ActiveLink to="/blog">Blog</ActiveLink>
-          </li>
+          {desktopNavigation}
         </ul>
         {currentUser?.email ? (
           <div className="hidden justify-center items-center gap-2 lg:flex">
@@ -173,48 +151,7 @@ const Navbar = () => {
             </button>
           </div>
           <div>
-            <ul>
-              <li className="mb-1">
-                <ActiveLink
-                  className="block p-4 text-sm font-semibold hover:bg-blue-50  rounded"
-                  to="/"
-                >
-                  Home
-                </ActiveLink>
-              </li>
-              <li className="mb-1">
-                <ActiveLink
-                  className="block p-4 text-sm font-semibold  hover:bg-blue-50  rounded"
-                  to="/admin/allproducts"
-                >
-                  All toys
-                </ActiveLink>
-              </li>
-              <li className="mb-1">
-                <ActiveLink
-                  className="block p-4 text-sm font-semibold  hover:bg-blue-50  rounded"
-                  to="/admin/myproducts"
-                >
-                  My Toys
-                </ActiveLink>
-              </li>
-              <li className="mb-1">
-                <ActiveLink
-                  className="block p-4 text-sm font-semibold hover:bg-blue-50 rounded"
-                  to="/admin/addproduct"
-                >
-                  Add Toy
-                </ActiveLink>
-              </li>
-              <li className="mb-1">
-                <ActiveLink
-                  className="block p-4 text-sm font-semibold hover:bg-blue-50 rounded"
-                  to="/blog"
-                >
-                  Blog
-                </ActiveLink>
-              </li>
-            </ul>
+            <ul>{mobileNavigation}</ul>
           </div>
           <div className="mt-auto">
             {currentUser?.email ? (
