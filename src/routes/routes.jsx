@@ -5,7 +5,50 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Instructors from "../pages/Instructors/Instructors/Instructors";
+import Classes from "../pages/Classes/Classes/Classes";
+import Dashboard from "../layout/Dashboard";
+import SelectedClasses from "../pages/UserDashboard/SelectedClasses/SelectedClasses";
+import EnrolledClasses from "../pages/UserDashboard/EnrolledClasses/EnrolledClasses";
+import AddClass from "../pages/InstructorDashboard/AddClass/AddClass";
+import CreatedClasse from "../pages/InstructorDashboard/CreatedClass/CreatedClass";
+import ManageClasses from "../pages/AdminDashboard/ManageClasses/ManageClasses";
+import ManageUsers from "../pages/AdminDashboard/ManageUsers/ManageUsers";
 
+//user routes
+export const userRoutes = [
+  {
+    path: "my-selected-classes",
+    element: <SelectedClasses />,
+  },
+  {
+    path: "my-enrolled-classes",
+    element: <EnrolledClasses />,
+  },
+];
+
+//instructor routes
+const instructorRoute = [
+  {
+    path: "add-class",
+    element: <AddClass />,
+  },
+  {
+    path: "my-created-class",
+    element: <CreatedClasse />,
+  },
+];
+
+//admin routes
+const adminRoute = [
+  {
+    path: "manage-classes",
+    element: <ManageClasses />,
+  },
+  {
+    path: "manage-users",
+    element: <ManageUsers />,
+  },
+];
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +64,10 @@ const routes = createBrowserRouter([
         element: <Instructors />,
       },
       {
+        path: "/classes",
+        element: <Classes />,
+      },
+      {
         path: "/login",
         element: <Login />,
       },
@@ -29,6 +76,12 @@ const routes = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    errorElement: <ErrorPage />,
+    children: [...userRoutes, ...instructorRoute, ...adminRoute],
   },
 ]);
 

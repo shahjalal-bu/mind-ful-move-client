@@ -7,6 +7,7 @@ const PopularClass = () => {
       <SectionHead
         titile="Choose Our Best Courses"
         subtitle="Choose Your Level Best"
+        className="sm:mb-10"
       />
       <div className="sm:grid grid-cols-3 gap-4">
         <Card />

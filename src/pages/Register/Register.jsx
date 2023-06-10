@@ -21,13 +21,13 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     await signup(data.email, data.password, data.name, uploadedImageUrl);
     navigate("/");
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+    console.log(file);
     setIsLoading(true);
     const formData = new FormData();
     formData.append("image", file);
@@ -56,7 +56,7 @@ const Register = () => {
       )}
       <div className="mt-12">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          {/* <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
               Name<span className="text-red-500">*</span>
             </div>
@@ -160,20 +160,8 @@ const Register = () => {
                 {errors.confirmPassword.message}
               </span>
             )}
-          </div>
-          {/* <div>
-            <div className="text-sm font-bold text-gray-700 tracking-wide">
-              Profile Picture<span className="text-red-500">*</span>
-            </div>
-            <input
-              type="file"
-              className="file-input file-input-warning file-input-bordered w-full"
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
-            {isLoading && <p>Uploading image...</p>}
-            {uploadedImageUrl && <p>Image uploaded successfully</p>}
           </div> */}
+
           <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
               Profile Picture<span className="text-red-500">*</span>

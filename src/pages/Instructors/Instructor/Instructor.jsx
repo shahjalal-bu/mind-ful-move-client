@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { FaStar } from "react-icons/fa";
+import { FaRegEye, FaStar } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 
 const Instructor = () => {
@@ -16,7 +16,7 @@ const Instructor = () => {
         {/* TODO: transiton not working */}
         <div className="w-full h-full justify-center items-center bg-amber-100/50 absolute left-0  hidden group-hover:top-0 group-hover:flex">
           <div className="bg-white p-2 rounded-full cursor-pointer">
-            <AiOutlinePlus size={25} />
+            <FaRegEye size={25} />
           </div>
         </div>
       </div>
