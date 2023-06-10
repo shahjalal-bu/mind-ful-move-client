@@ -6,7 +6,6 @@ import {
 } from "react-icons/ai";
 
 const Card = () => {
-  let a = ["a", "b"];
   return (
     <div className="bg-white rounded shadow-lg  group">
       <div className="relative">

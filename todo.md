@@ -5,65 +5,20 @@
 [👍] 0. I have selected Yoga and meditation school
 [👍] 1. Focus on making the website visually appealing.
 [👍] 2. Make sure to keep the navbar and footer **on all the pages except on the 404 page**. Create a good, stylish, and meaningful footer. (including website logo or name or both, copyright, some contact information, Address etc.)
+//TODD - Dashboard conditional
+[👍] 3. Your website should have a navbar with the **Website logo or Website name, Home, Instructors, Classes, Dashboard** and **User profile picture**\. The **user profile picture** and **Dashboard** on the navbar are conditional\. If the user is signed in, the navbar will show the profile picture; otherwise, it will show the
+[👌] **Login Page:**
+[👍]**Registration Page:**
+[]5. **Homepage:**
+[👍]Top Slider Section
 
-3. Your website should have a navbar with the **Website logo or Website name, Home, Instructors, Classes, Dashboard** and **User profile picture**\. The **user profile picture** and **Dashboard** on the navbar are conditional\. If the user is signed in, the navbar will show the profile picture; otherwise, it will show the **Login button**\.
+//TODO:Backend Implement
 
-<br/>
+- **Popular Classes Section -** Show relevant pictures related to the classes or activities. Have the top 6 classes based on the number of students.
 
-4. **Registration & Login System:**
+- **Popular Instructors Section -** Show relevant pictures related to the classes or activities. Show the top 6 instructors based on the number of students in their Class. However, selecting top instructors based on the number of students is optional, but you must show 6 instructors.
 
-   **Login Page:**
-   When a user clicks on the login button, they will be redirected to the login page having the following:
-
-   - Email
-   - Password **(This field can hide/unhide the password by clicking on an icon)**
-   - A link that will redirect to the registration page
-   - Keep at least one social login
-
-   <br/>
-
-   **Registration Page:**
-   The Registration page will have the Email/Password form having the following fields:
-
-   - Name
-   - Email
-   - Password
-   - Confirm Password
-   - Photo URL
-   - (optional) Gender
-   - (optional) Phone Number
-   - (optional) Address
-
-   <br/>
-
-   > **Note:** Keep at least one social login
-
-   > **Note:** Do not enforce **forget password feature** and the **email verification method**, as it will inconvenience the examiner. If you want, you can add email verification/forget the password after receiving the assignment result.
-
-   <br/>
-
-   **Error for Registration system:**
-   On the Registration page, display errors when:
-
-   The password
-
-   - is less than 6 characters
-   - don't have a capital letter
-   - don't have a special character
-
-   <br/>
-
-   > **Note:** A user cannot submit empty email and password fields.
-
-5. **Homepage:**
-
-   - **Top Slider Section -** Will have a relevant slider. Use relevant text, information, message, and picture. The design is entirely up to you.
-
-   - **Popular Classes Section -** Show relevant pictures related to the classes or activities. Have the top 6 classes based on the number of students.
-
-   - **Popular Instructors Section -** Show relevant pictures related to the classes or activities. Show the top 6 instructors based on the number of students in their Class. However, selecting top instructors based on the number of students is optional, but you must show 6 instructors.
-
-   - **Extra Section -** Add one relevant sections. Make it attractive :heart_eyes:. Try to use animation effects.
+- **Extra Section -** Add one relevant sections. Make it attractive :heart_eyes:. Try to use animation effects.
 
 <br/>
 
@@ -149,7 +104,6 @@
 
       > **Note:** A modal will be opened When the admin clicks the send feedback button. Admin will write the approved/denied reason in a text field and send it to the Instructor. You can also do this in another route except for the modal.
 
-
         </br>
 
     - **Manage Users:** The admin can see the relevant information of all registered users. By default, everyone will be a student. And there will be **2 buttons**: **Make Instructor** button and **Make Admin** button. If a user clicks any of the buttons, disable it.
@@ -201,7 +155,7 @@
 
 </br>
 
-10. Create a 404 page\. Add any interesting image/ animation & a back-to-home button on the 404 page\. **Do not add header & footer in this page**\.
+[👌]10. Create a 404 page\. Add any interesting image/ animation & a back-to-home button on the 404 page\. **Do not add header & footer in this page**\.
 
 </br>
 

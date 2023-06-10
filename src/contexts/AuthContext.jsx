@@ -29,11 +29,11 @@ export function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
-      if (user?.email) {
-        Axios.post("/jwt", { email: user?.email }).then((res) =>
-          localStorage.setItem("toy-access-token", res.data.token)
-        );
-      }
+      // if (user?.email) {
+      //   Axios.post("/jwt", { email: user?.email }).then((res) =>
+      //     localStorage.setItem("toy-access-token", res.data.token)
+      //   );
+      // }
     });
     return unsubscribe;
   });

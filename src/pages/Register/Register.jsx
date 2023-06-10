@@ -1,31 +1,64 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import SectionHead from "../Shared/SectionHead/SectionHead";
 import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
 import Select from "react-select";
+import { uploadImg } from "../../api/api";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [isSeenPassword, setSeenPassword] = useState(false);
-  const [gender, setGender] = useState(null);
+  const { signup } = useAuth();
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    await signup(data.email, data.password, data.name, uploadedImageUrl);
+    navigate("/");
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("image", file);
+    uploadImg(formData)
+      .then((response) => response.json())
+      .then((data) => {
+        setUploadedImageUrl(data.data.url);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error);
+        setIsLoading(false);
+      });
+  };
   return (
     <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl mx-auto my-5">
       <SectionHead titile="Login" subtitle="Explore now..." />
+      {uploadedImageUrl && (
+        <div className="flex justify-center">
+          <div className="avatar">
+            <div className="w-24 rounded-full">
+              <img src={uploadedImageUrl} />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="mt-12">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
-              Name
+              Name<span className="text-red-500">*</span>
             </div>
             <input
               className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-amber-500"
@@ -39,11 +72,11 @@ const Register = () => {
           </div>
           <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
-              Email Address
+              Email Address<span className="text-red-500">*</span>
             </div>
             <input
               className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-amber-500"
-              type=""
+              type="email"
               placeholder="alex@gmail.com"
               {...register("email", {
                 required: "Email is required",
@@ -57,14 +90,36 @@ const Register = () => {
               <span className="text-red-500">{errors.email.message}</span>
             )}
           </div>
+          <div>
+            <div className="text-sm font-bold text-gray-700 tracking-wide">
+              Phone Number
+            </div>
+            <input
+              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-amber-500"
+              type="phone"
+              placeholder="01545687886"
+              {...register("phone")}
+            />
+          </div>
+          <div>
+            <div className="text-sm font-bold text-gray-700 tracking-wide">
+              Address
+            </div>
+            <input
+              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-amber-500"
+              type="text"
+              placeholder="Dhaka, Bangladesh"
+              {...register("address")}
+            />
+          </div>
           <div className="mt-8">
             <div className="text-sm font-bold text-gray-700 tracking-wide">
-              Password
+              Password<span className="text-red-500">*</span>
             </div>
             <div className="relative">
               <input
                 className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-amber-500"
-                type={isSeenPassword ? "text" : "password"}
+                type="password"
                 placeholder="Enter your password"
                 {...register("password", {
                   required: "Password is required",
@@ -80,12 +135,6 @@ const Register = () => {
                   },
                 })}
               />
-              <div
-                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
-                onClick={() => setSeenPassword(!isSeenPassword)}
-              >
-                {isSeenPassword ? <FaEyeSlash /> : <FaEye />}
-              </div>
             </div>
             {errors.password && (
               <span className="text-red-500">{errors.password.message}</span>
@@ -93,24 +142,18 @@ const Register = () => {
           </div>
           <div className="mt-8">
             <div className="text-sm font-bold text-gray-700 tracking-wide">
-              Re-type Password
+              Re-type Password<span className="text-red-500">*</span>
             </div>
             <div className="relative">
               <input
                 className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-amber-500"
-                type={isSeenPassword ? "text" : "password"}
+                type="password"
                 placeholder="Enter your password"
                 {...register("confirmPassword", {
                   validate: (value) =>
                     value === watch("password") || "Passwords do not match",
                 })}
               />
-              <div
-                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
-                onClick={() => setSeenPassword(!isSeenPassword)}
-              >
-                {isSeenPassword ? <FaEyeSlash /> : <FaEye />}
-              </div>
             </div>
             {errors.confirmPassword && (
               <span className="text-red-500">
@@ -118,32 +161,72 @@ const Register = () => {
               </span>
             )}
           </div>
-          <div>
+          {/* <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
-              Profile Picture
+              Profile Picture<span className="text-red-500">*</span>
             </div>
             <input
               type="file"
-              className="file-input file-input-bordered w-full"
-              {...register("profilePicture")}
+              className="file-input file-input-warning file-input-bordered w-full"
+              accept="image/*"
+              onChange={handleImageUpload}
             />
+            {isLoading && <p>Uploading image...</p>}
+            {uploadedImageUrl && <p>Image uploaded successfully</p>}
+          </div> */}
+          <div>
+            <div className="text-sm font-bold text-gray-700 tracking-wide">
+              Profile Picture<span className="text-red-500">*</span>
+            </div>
+            <Controller
+              name="profilePicture"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Profile picture is required" }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    type="file"
+                    className="file-input file-input-warning file-input-bordered w-full"
+                    accept="image/*"
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleImageUpload(e);
+                    }}
+                  />
+                  {isLoading && <p>Uploading image...</p>}
+                  {uploadedImageUrl && <p>Image uploaded successfully</p>}
+                </div>
+              )}
+            />
+            {errors.profilePicture && (
+              <span className="text-red-500">
+                {errors.profilePicture.message}
+              </span>
+            )}
           </div>
           <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
               Gender
             </div>
-            <Select
-              id="selectOption"
-              name="selectOption"
-              options={[
-                { value: "male", label: "Male" },
-                { value: "female", label: "Female" },
-                { value: "other", label: "Other" },
-              ]}
-              defaultInputValue={gender}
-              onChange={setGender}
+            <Controller
+              name="gender"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-amber-500"
+                >
+                  <option value="">Select an option</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="purple">Other</option>
+                </select>
+              )}
             />
           </div>
+
           <div className="mt-10">
             <button
               className="bg-amber-500 text-gray-100 p-4 w-full rounded-full tracking-wide
