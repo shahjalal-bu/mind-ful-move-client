@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import SectionHead from "../Shared/SectionHead/SectionHead";
 import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
   const [isSeenPassword, setSeenPassword] = useState(false);
   const { login, googleSignIn } = useAuth();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const navigate = useNavigate();
   const {
     register,
@@ -18,16 +21,17 @@ const Login = () => {
   const onSubmit = async (data) => {
     const res = await login(data.email, data.password);
     if (res.user.email) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
   };
 
   const handleGoogleLogin = async () => {
     const res = await googleSignIn();
     if (res.user.email) {
-      navigate("/");
+      navigate(from, { replace: true });
     }
   };
+
   return (
     <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl mx-auto my-5">
       <SectionHead titile="Login" subtitle="Explore now..." />

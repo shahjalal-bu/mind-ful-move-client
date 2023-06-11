@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       setLoading(false);
       const apiCall = async () => {
-        if (user?.email && user?.displayName && user?.photoURL) {
+        if (user?.email) {
           await addUser({
             displayName: user?.displayName,
             photoURL: user?.photoURL,
