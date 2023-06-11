@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-// import GlobalSpinner from "../components/GlobalSpinner";
-// import Error from "../components/Error";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { FaSearch } from "react-icons/fa";
 import { MdOutlineCancel, MdOutlineLocalOffer } from "react-icons/md";
-import { CiDiscount1 } from "react-icons/ci";
+
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
-// import Axios from "../utils/Axios";
+import useUsers from "../../../hooks/useUsers";
+import GlobalSpinner from "../../Shared/GlobalSpinner/GlobalSpinner";
 
 const ManageUsers = () => {
+  const [users, loading, refetch] = useUsers();
+  console.log(users);
   //   const handleDelete = async (id) => {
   //     try {
   //       const response = await Axios.delete(`/toys/${id}`);
@@ -58,78 +58,63 @@ const ManageUsers = () => {
   //       handleDealsOfTheDay(id, dealsOfTheDay);
   //     }
   //   };
+  if (loading) return <GlobalSpinner />;
 
-  return (
-    <div className="bg-gray-200 rounded-md p-5">
-      <SectionHead titile="Manage Users" />
-      <div className="divider my-0"></div>
-      <div className="overflow-x-auto overflow-y-auto h-[82vh]">
-        <table className="table">
-          <thead className="sticky bg-gray-300 top-0 text-black">
-            <tr>
-              <th>No.</th>
-              <th>Name</th>
-              <th>Img</th>
-              <th>Seller</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Rating</th>
-              <th>Quantity</th>
-              <th>View</th>
-              <th className="text-center">Function</th>
-            </tr>
-          </thead>
-          <tbody className="">
-            {[
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11,
-              1, 1, 11, 11, 1, 1, 1, 11, 1, 1, 1, 11,
-            ].map((el, index) => (
-              <tr key={el?._id}>
-                <th>{index + 1}</th>
-                <td className="overflow-hidden">
-                  <span className="inline-block w-40 whitespace-normal">
-                    {el?.Name}
-                  </span>
-                </td>
-                <td>
-                  <img className="w-20 h-16" src={el?.Picture} alt="img" />
-                </td>
-                <td>{el?.Seller}</td>
-                <td className="inline-block w-16 whitespace-normal">
-                  {el?.Category}
-                </td>
-                <td>{el?.Price}</td>
-                <td>{el?.Rating}</td>
-                <td>{el?.Qty}</td>
-                <td>
-                  <Link to={`/toy/${el?._id}`}>
-                    <button className="btn btn-primary btn-sm mx-1">
-                      View
-                    </button>
-                  </Link>
-                </td>
-                <td>
-                  <Link to={`/admin/editproduct/${el?._id}`}>
-                    <button className="btn btn-warning btn-sm mx-1">
-                      <AiOutlineEdit />
-                    </button>
-                  </Link>
-                </td>
+  if (users && Array.isArray(users) && users.length > 0)
+    return (
+      <div className="bg-gray-200 rounded-md p-5">
+        <SectionHead titile="Manage Users" />
+        <div className="divider my-0"></div>
+        <div className="overflow-x-auto overflow-y-auto h-[82vh]">
+          <table className="table">
+            <thead className="sticky bg-gray-300 top-0 text-black">
+              <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Img</th>
+                <th>Email</th>
+                <th>Category</th>
+                <th className="text-center">Function</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex justify-center">
-          {/* <button
+            </thead>
+            <tbody className="">
+              {users.map((el, index) => (
+                <tr key={el?._id}>
+                  <th>{index + 1}</th>
+                  <td>{el?.displayName}</td>
+                  <td>
+                    <img
+                      className="w-16 h-16 rounded-md"
+                      src={el?.photoURL}
+                      alt="img"
+                    />
+                  </td>
+                  <td>{el?.email}</td>
+                  <td>{el?.role}</td>
+
+                  <td>
+                    <button className="btn btn-warning btn-sm mx-1">
+                      Make Admin
+                    </button>
+                    <button className="btn btn-warning btn-sm mx-1">
+                      Make Instructor
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="flex justify-center">
+            {/* <button
                   className="bg-slate-900 rounded-sm py-4 px-2 my-2 w-2/6 text-white"
                   onClick={() => setAllProductsLimit((prev) => prev + 20)}
                 >
                   Load More Data
                 </button> */}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default ManageUsers;

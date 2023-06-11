@@ -3,25 +3,36 @@ import { Controller, useForm } from "react-hook-form";
 import SectionHead from "../Shared/SectionHead/SectionHead";
 import { FaEye, FaEyeSlash, FaSearch } from "react-icons/fa";
 import Select from "react-select";
-import { uploadImg } from "../../api/api";
+import useApi from "../../api/api";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const { signup } = useAuth();
   const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [isRegistering, setRegistering] = useState(false);
+  const { uploadImg } = useApi();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     control,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-    await signup(data.email, data.password, data.name, uploadedImageUrl);
+    setRegistering(true);
+    await signup(
+      data.email,
+      data.password,
+      data.name,
+      uploadedImageUrl
+    );
+    reset();
+    setRegistering(false);
     navigate("/");
   };
 
@@ -56,7 +67,7 @@ const Register = () => {
       )}
       <div className="mt-12">
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* <div>
+          <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
               Name<span className="text-red-500">*</span>
             </div>
@@ -160,7 +171,7 @@ const Register = () => {
                 {errors.confirmPassword.message}
               </span>
             )}
-          </div> */}
+          </div>
 
           <div>
             <div className="text-sm font-bold text-gray-700 tracking-wide">
@@ -221,7 +232,7 @@ const Register = () => {
                     font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-amber-600
                     shadow-lg"
               type="submit"
-              disabled={Object.keys(errors).length > 0}
+              disabled={Object.keys(errors).length > 0 || isRegistering}
             >
               Register
             </button>

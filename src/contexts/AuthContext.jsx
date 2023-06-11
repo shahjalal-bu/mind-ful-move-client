@@ -14,6 +14,8 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 import Axios from "../utils/Axios";
+import useAxios from "../hooks/useAxios";
+import useApi from "../api/api";
 
 const AuthContext = React.createContext();
 
@@ -24,16 +26,28 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
+  const { addUser } = useApi();
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);
-      // if (user?.email) {
-      //   Axios.post("/jwt", { email: user?.email }).then((res) =>
-      //     localStorage.setItem("toy-access-token", res.data.token)
-      //   );
-      // }
+      const apiCall = async () => {
+        if (user?.email && user?.displayName && user?.photoURL) {
+          await addUser({
+            displayName: user?.displayName,
+            photoURL: user?.photoURL,
+            email: user?.email,
+            role: "student",
+          });
+          Axios.post("/jwt", { email: user?.email }).then((res) =>
+            localStorage.setItem("access-token", res.data.token)
+          );
+        } else {
+          localStorage.removeItem("access-token");
+        }
+      };
+      apiCall();
     });
     return unsubscribe;
   });
@@ -70,11 +84,6 @@ export function AuthProvider({ children }) {
   }
   // sign in  function
 
-  function githubSignIn() {
-    const auth = getAuth();
-    return signInWithPopup(auth, new GithubAuthProvider());
-  }
-
   //logout
   function logout() {
     const auth = getAuth();
@@ -87,7 +96,6 @@ export function AuthProvider({ children }) {
     login,
     logout,
     googleSignIn,
-    githubSignIn,
   };
   return (
     <AuthContext.Provider value={value}>

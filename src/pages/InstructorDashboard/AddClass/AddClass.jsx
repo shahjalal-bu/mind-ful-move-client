@@ -2,22 +2,41 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../../contexts/AuthContext";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
-import { uploadImg } from "../../../api/api";
+// import { addClass, uploadImg } from "../../../api/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import useApi from "../../../api/api";
 
 const AddClass = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const { addClass, uploadImg } = useApi();
+  const queryClient = useQueryClient();
+  const mutation = useMutation(addClass, {
+    onSuccess: () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Item added successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      reset();
+      queryClient.invalidateQueries("classes");
+    },
+  });
   const { currentUser } = useAuth();
-
   const onSubmit = async (data) => {
     const file = data.classImage[0];
     const formData = new FormData();
     formData.append("image", file);
-
     await uploadImg(formData)
       .then((response) => response.json())
       .then((result) => {
         data.classImage = result.data.url;
-        console.log(data);
+        data.instructorName = currentUser.displayName;
+        data.instructorPhoto = currentUser.photoUrl,
+        data.instructorEmail = currentUser.email
+        mutation.mutate(data);
       })
       .catch((error) => {
         console.error("Error uploading image:", error);

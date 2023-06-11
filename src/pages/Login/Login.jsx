@@ -7,7 +7,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
   const [isSeenPassword, setSeenPassword] = useState(false);
-  const { login } = useAuth();
+  const { login, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -22,6 +22,12 @@ const Login = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    const res = await googleSignIn();
+    if (res.user.email) {
+      navigate("/");
+    }
+  };
   return (
     <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl mx-auto my-5">
       <SectionHead titile="Login" subtitle="Explore now..." />
@@ -83,15 +89,16 @@ const Login = () => {
               Log In
             </button>
             <div className="divider">OR</div>
-            <button
-              className="bg-blue-500 text-gray-100 p-4 w-full rounded-full tracking-wide
-                    font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-600
-                    shadow-lg"
-            >
-              Log In With Google
-            </button>
           </div>
         </form>
+        <button
+          className="bg-blue-500 text-gray-100 p-4 w-full rounded-full tracking-wide
+                    font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-600
+                    shadow-lg"
+          onClick={handleGoogleLogin}
+        >
+          Log In With Google
+        </button>
         <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
           Don't have an account?
           <Link

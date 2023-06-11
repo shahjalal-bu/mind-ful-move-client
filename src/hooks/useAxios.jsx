@@ -1,18 +1,14 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import useAuth from "./useAuth";
+import { useAuth } from "../contexts/AuthContext";
 
 const axiosSecure = axios.create({
   baseURL: "http://localhost:5000",
 });
 
-const Axios = axios.create({
-  baseURL: "http://localhost:5000",
-});
-
 const useAxios = () => {
-  const { logOut } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,15 +27,15 @@ const useAxios = () => {
           error.response &&
           (error.response.status === 401 || error.response.status === 403)
         ) {
-          await logOut();
+          await logout();
           navigate("/login");
         }
         return Promise.reject(error);
       }
     );
-  }, [logOut, navigate]);
+  }, [logout, navigate]);
 
-  return { Axios, axiosSecure };
+  return [axiosSecure];
 };
 
 export default useAxios;
