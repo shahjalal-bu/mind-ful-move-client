@@ -1,16 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
+import useAxios from "./useAxios";
 import { useAuth } from "../contexts/AuthContext";
-import useApi from "../api/api";
 
 const useInstructor = () => {
   const { currentUser, loading } = useAuth();
-  const { checkInstructor } = useApi();
-
+  console.log(currentUser);
+  const [axiosSecure] = useAxios();
   // use axios secure with react query
   const { data: isInstructor, isLoading: isInstructorLoading } = useQuery({
     queryKey: ["isInstructor", currentUser?.email],
     enabled: !loading,
-    queryFn: checkInstructor,
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/users/check-instructor/${currentUser?.email}`
+      );
+      return res.data.instructor;
+    },
   });
   return [isInstructor, isInstructorLoading];
 };

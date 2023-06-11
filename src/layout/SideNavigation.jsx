@@ -9,6 +9,8 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { BsPeopleFill } from "react-icons/bs";
 
 import img from "../assets/img";
+import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
 //student dashboard
 const userNavigationData = [
@@ -78,6 +80,16 @@ const navigationDataLink = (role) => {
 
 const SideNavigation = () => {
   const { currentUser, logout } = useAuth();
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isInstructor, isInstructorLoading] = useInstructor();
+  let navContent;
+  if (isAdmin && !isAdminLoading) {
+    navContent = navigationDataLink("admin");
+  } else if (isInstructor && isInstructorLoading) {
+    navContent = navigationDataLink("instructor");
+  } else {
+    navContent = navigationDataLink("student");
+  }
   return (
     <div className=" bg-gray-200 min-h-[95vh]  lg:flex flex-col w-60 hidden p-3 rounded-md ">
       <div className="mb-4">
@@ -89,9 +101,7 @@ const SideNavigation = () => {
             <BiHome /> <p>Home</p>
           </div>
         </ActiveLink>
-        {navigationDataLink("student")}
-        {navigationDataLink("instructor")}
-        {navigationDataLink("admin")}
+        {navContent}
       </div>
       <div className="mt-auto p-3">
         <div className="divider"></div>

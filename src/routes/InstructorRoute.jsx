@@ -1,12 +1,12 @@
 import { Navigate, useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
-import useAdmin from "../hooks/useAdmin";
 import GlobalSpinner from "../components/GlobalSpinner";
 import useInstructor from "../hooks/useInstructor";
 
 const InstructorRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();
   const [isInstructor, isInstructorLoading] = useInstructor();
+  console.log(isInstructor);
   const location = useLocation();
 
   if (loading || isInstructorLoading) {

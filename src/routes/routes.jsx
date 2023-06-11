@@ -15,6 +15,7 @@ import ManageClasses from "../pages/AdminDashboard/ManageClasses/ManageClasses";
 import ManageUsers from "../pages/AdminDashboard/ManageUsers/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import InstructorRoute from "./InstructorRoute";
 
 //user routes
 export const userRoutes = [
@@ -33,14 +34,18 @@ const instructorRoute = [
   {
     path: "add-class",
     element: (
-      // <Instructors>
-      <AddClass />
-      // </Instructors>
+      <InstructorRoute>
+        <AddClass />
+      </InstructorRoute>
     ),
   },
   {
     path: "my-created-class",
-    element: <CreatedClasse />,
+    element: (
+      <InstructorRoute>
+        <CreatedClasse />
+      </InstructorRoute>
+    ),
   },
 ];
 
