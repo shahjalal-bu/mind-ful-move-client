@@ -9,63 +9,17 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
 import GlobalSpinner from "../../Shared/GlobalSpinner/GlobalSpinner";
+import useClasses from "../../../hooks/useClasses";
 // import Axios from "../utils/Axios";
 
 const ManageClasses = () => {
-  //   const handleDelete = async (id) => {
-  //     try {
-  //       const response = await Axios.delete(`/toys/${id}`);
-  //       console.log(response.data);
-  //       //TODO: froned updated needed
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+  const [classes, loading, refetch] = useClasses();
 
-  //   const isDelete = async (id) => {
-  //     const res = await Swal.fire({
-  //       title: "Are you sure?",
-  //       text: "You want to delete this product?",
-  //       icon: "warning",
-  //       confirmButtonText: "Delete",
-  //       showCancelButton: true,
-  //     });
-  //     if (res.isConfirmed) {
-  //       handleDelete(id);
-  //     }
-  //   };
-  //   const handleDealsOfTheDay = async (id, dealsOfTheDay) => {
-  //     try {
-  //       const response = await Axios.patch(`toys/deals-of-the-day/${id}`, {
-  //         dealsOfTheDay: true,
-  //       });
-  //       console.log(response.data);
-  //       // Handle response data
-  //     } catch (error) {
-  //       console.error(error);
-  //       // Handle error
-  //     }
-  //   };
-
-  //   const isDealsOfDay = async (id, dealsOfTheDay) => {
-  //     const res = await Swal.fire({
-  //       title: "Are you sure?",
-  //       text: "You want to deal of the day this product?",
-  //       icon: "warning",
-  //       confirmButtonText: "YES",
-  //       showCancelButton: true,
-  //     });
-  //     if (res.isConfirmed) {
-  //       handleDealsOfTheDay(id, dealsOfTheDay);
-  //     }
-  //   };
-  let isLoading, user;
-
-  if (isLoading) return <GlobalSpinner />;
-  if (user)
+  if (loading) return <GlobalSpinner />;
+  if (classes)
     return (
       <div className="bg-gray-200 rounded-md p-5">
-        <SectionHead titile="My Created Classes" />
+        <SectionHead titile="Manage Classes" />
         <div className="divider my-0"></div>
         <div className="overflow-x-auto overflow-y-auto h-[82vh]">
           <table className="table">
@@ -74,18 +28,29 @@ const ManageClasses = () => {
                 <th>No.</th>
                 <th>Name</th>
                 <th>Img</th>
-                <th>Category</th>
+                <th className="text-center">
+                  Instructor
+                  <br />
+                  Name
+                </th>
+                <th className="text-center">
+                  Instructor
+                  <br />
+                  Email
+                </th>
                 <th>Status</th>
                 <th>Price</th>
-                <th>
-                  Enrolled <br /> Students
+                <th className="text-center">
+                  Available <br />
+                  Seats
                 </th>
-                <th>Feedback</th>
-                <th>Function</th>
+                <th className="center">Approved</th>
+                <th className="center">Deny</th>
+                <th className="center">Feedback</th>
               </tr>
             </thead>
             <tbody className="">
-              {user?.classes?.map((el, index) => (
+              {classes?.map((el, index) => (
                 <tr key={el?._id}>
                   <th>{index + 1}</th>
                   <td>{el?.className}</td>
@@ -96,15 +61,21 @@ const ManageClasses = () => {
                       alt="img"
                     />
                   </td>
-                  <td>{el?.category}</td>
+                  <td>{el?.instructorName}</td>
+                  <td>{el?.instructorEmail}</td>
                   <td>
                     <span className="badge">{el?.status}</span>
                   </td>
                   <td>{el?.price}</td>
-                  <td>{el?.enrolledStudents}</td>
-                  <td>{el?.feedback}</td>
+                  <td>{el?.availableSeats}</td>
                   <td>
-                    <div className="btn btn-warning btn-sm">Update</div>
+                    <div className="btn btn-success btn-sm">Approved</div>
+                  </td>
+                  <td>
+                    <div className="btn btn-warning  btn-sm">Deny</div>
+                  </td>
+                  <td>
+                    <div className="btn btn-info btn-sm">Feedback</div>
                   </td>
                 </tr>
               ))}

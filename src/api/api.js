@@ -1,4 +1,3 @@
-
 import useAxios from "../hooks/useAxios";
 import Axios from "../utils/Axios";
 
@@ -26,23 +25,18 @@ const useApi = () => {
     return response.data;
   };
 
+  //get all user
+  const getAllClasses = async () => {
+    const response = await axiosSecure.get("/classes");
+    return response.data;
+  };
+
   //update user role admin
 
   const makeAdmin = async (userId) => {
     const response = await axiosSecure.patch(`/users/make-admin/${userId}`);
     return response.data;
   };
-  // //check user admin
-  // const checkAdmin = async () => {
-  //   const response = await axiosSecure.get(`/users/check-admin/`);
-  //   return response.data;
-  // };
-  // //check user admin
-  // const checkInstructor = async (email) => {
-  //   const response = await axiosSecure.get(`/users/check-instructor/`);
-  //   return response.data;
-  // };
-  //update user role instructor
 
   const makeInstructor = async (userId) => {
     try {
@@ -60,7 +54,7 @@ const useApi = () => {
     getAllUser,
     makeAdmin,
     makeInstructor,
-  
+    getAllClasses,
   };
 };
 
