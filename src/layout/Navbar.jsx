@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import ActiveLink from "../components/ActiveLink";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import ActiveLink from "../pages/Shared/ActiveLink/ActiveLink";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();

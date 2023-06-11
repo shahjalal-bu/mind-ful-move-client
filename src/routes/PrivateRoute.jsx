@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
-import GlobalSpinner from "../components/GlobalSpinner";
+import GlobalSpinner from "../pages/Shared/GlobalSpinner/GlobalSpinner";
 
 const PrivateRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();

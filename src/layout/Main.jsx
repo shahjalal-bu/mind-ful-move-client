@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, useNavigation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import GlobalSpinner from "../components/GlobalSpinner";
+import GlobalSpinner from "../pages/Shared/GlobalSpinner/GlobalSpinner";
 
 const Main = () => {
   //loading stage handle

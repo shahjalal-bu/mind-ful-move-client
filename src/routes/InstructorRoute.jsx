@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
-import GlobalSpinner from "../components/GlobalSpinner";
 import useInstructor from "../hooks/useInstructor";
+import GlobalSpinner from "../pages/Shared/GlobalSpinner/GlobalSpinner";
 
 const InstructorRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();

@@ -83,12 +83,14 @@ const SideNavigation = () => {
   const [isAdmin, isAdminLoading] = useAdmin();
   const [isInstructor, isInstructorLoading] = useInstructor();
   let navContent;
-  if (isAdmin && !isAdminLoading) {
-    navContent = navigationDataLink("admin");
-  } else if (isInstructor && isInstructorLoading) {
-    navContent = navigationDataLink("instructor");
-  } else {
-    navContent = navigationDataLink("student");
+  if (!isAdminLoading && !isInstructorLoading) {
+    if (isAdmin) {
+      navContent = navigationDataLink("admin");
+    } else if (isInstructor) {
+      navContent = navigationDataLink("instructor");
+    } else {
+      navContent = navigationDataLink("student");
+    }
   }
   return (
     <div className=" bg-gray-200 min-h-[95vh]  lg:flex flex-col w-60 hidden p-3 rounded-md ">

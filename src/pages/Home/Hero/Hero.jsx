@@ -7,10 +7,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./hero.css";
-
 //import image
 import img from "../../../assets/img";
-console.log(img?.bg1);
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
 

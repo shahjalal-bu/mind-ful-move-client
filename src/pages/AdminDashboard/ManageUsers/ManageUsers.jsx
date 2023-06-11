@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { MdOutlineCancel, MdOutlineLocalOffer } from "react-icons/md";
-
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
 import useUsers from "../../../hooks/useUsers";
 import GlobalSpinner from "../../Shared/GlobalSpinner/GlobalSpinner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Axios from "../../../utils/Axios";
 import useApi from "../../../api/api";
 
 const ManageUsers = () => {

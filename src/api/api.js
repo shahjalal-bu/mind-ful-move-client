@@ -1,11 +1,9 @@
-import { useAuth } from "../contexts/AuthContext";
+
 import useAxios from "../hooks/useAxios";
 import Axios from "../utils/Axios";
 
 const useApi = () => {
   const [axiosSecure] = useAxios();
-  let email;
-  console.log(email);
   const uploadImg = (formData) =>
     fetch(import.meta.env.VITE_PHOTOHOSTAPI, {
       method: "POST",
