@@ -24,20 +24,17 @@ const useApi = () => {
     const response = await axiosSecure.get("/users");
     return response.data;
   };
-
   //get all user
   const getAllClasses = async () => {
     const response = await axiosSecure.get("/classes");
     return response.data;
   };
-
   //update user role admin
-
   const makeAdmin = async (userId) => {
     const response = await axiosSecure.patch(`/users/make-admin/${userId}`);
     return response.data;
   };
-
+  //make instructor
   const makeInstructor = async (userId) => {
     try {
       const response = await Axios.patch(`/users/make-instructor/${userId}`);
@@ -45,6 +42,27 @@ const useApi = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+  //update user role admin
+  const aprrovedClass = async (classId) => {
+    const response = await axiosSecure.patch(
+      `/classes/approved-class/${classId}`
+    );
+    return response.data;
+  };
+
+  const deniedClass = async (classId) => {
+    const response = await axiosSecure.patch(
+      `/classes/denied-class/${classId}`
+    );
+    return response.data;
+  };
+
+  const feedbackClass = async (classId) => {
+    const response = await axiosSecure.patch(
+      `/classes/feedback-class/${classId}`
+    );
+    return response.data;
   };
 
   return {
@@ -55,6 +73,9 @@ const useApi = () => {
     makeAdmin,
     makeInstructor,
     getAllClasses,
+    aprrovedClass,
+    deniedClass,
+    feedbackClass,
   };
 };
 

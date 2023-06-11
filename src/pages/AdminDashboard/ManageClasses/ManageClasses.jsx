@@ -10,11 +10,34 @@ import { Link } from "react-router-dom";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
 import GlobalSpinner from "../../Shared/GlobalSpinner/GlobalSpinner";
 import useClasses from "../../../hooks/useClasses";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useApi from "../../../api/api";
+import { useAuth } from "../../../contexts/AuthContext";
 // import Axios from "../utils/Axios";
 
 const ManageClasses = () => {
+  const { currentUser } = useAuth();
   const [classes, loading, refetch] = useClasses();
-
+  const { aprrovedClass, deniedClass } = useApi();
+  const queryClient = useQueryClient();
+  const { mutate: aprrovedClassMutaion } = useMutation({
+    mutationFn: aprrovedClass,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({
+        queryKey: ["classes"],
+      });
+    },
+  });
+  const { mutate: deniedClassMutaion } = useMutation({
+    mutationFn: deniedClass,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({
+        queryKey: ["classes"],
+      });
+    },
+  });
   if (loading) return <GlobalSpinner />;
   if (classes)
     return (
@@ -69,10 +92,26 @@ const ManageClasses = () => {
                   <td>{el?.price}</td>
                   <td>{el?.availableSeats}</td>
                   <td>
-                    <div className="btn btn-success btn-sm">Approved</div>
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => aprrovedClassMutaion(el?._id)}
+                      disabled={
+                        el?.status === "approved" || el?.status === "denied"
+                      }
+                    >
+                      Approved
+                    </button>
                   </td>
                   <td>
-                    <div className="btn btn-warning  btn-sm">Deny</div>
+                    <button
+                      className="btn btn-warning  btn-sm"
+                      onClick={() => deniedClassMutaion(el?._id)}
+                      disabled={
+                        el?.status === "approved" || el?.status === "denied"
+                      }
+                    >
+                      Denied
+                    </button>
                   </td>
                   <td>
                     <div className="btn btn-info btn-sm">Feedback</div>
