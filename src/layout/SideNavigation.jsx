@@ -93,7 +93,7 @@ const SideNavigation = () => {
     }
   }
   return (
-    <div className=" bg-gray-200 min-h-[95vh]  lg:flex flex-col w-60 hidden p-3 rounded-md ">
+    <div className=" bg-gray-200 sm:min-h-[95vh]  lg:flex flex-col sm:w-60  p-3 rounded-md ">
       <div className="mb-4">
         <img src={img.logo} className="w-9/12 mx-auto" alt="" />
       </div>

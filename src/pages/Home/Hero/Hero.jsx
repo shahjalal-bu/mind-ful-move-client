@@ -44,13 +44,13 @@ export default function Hero() {
               backgroundPosition: "center right",
             }}
           >
-            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)]"></div>
+            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(0,0,0,0.6)]"></div>
             <div className="max-w-[1380px] justify-center sm:justify-start h-full mx-auto flex items-center z-20 relative">
               <div className="p-10">
-                <p className="font-grandHotel antialiased text-xl sm:text-3xl text-amber-500">
+                <p className="font-grandHotel dark:text-white antialiased text-xl sm:text-3xl text-amber-500">
                   Student Special
                 </p>
-                <h1 className="font-luckiestGuy font-extrabold text-2xl  sm:text-7xl leading-[1.2] my-5">
+                <h1 className="font-luckiestGuy dark:text-white font-extrabold text-2xl  sm:text-7xl leading-[1.2] my-5">
                   3 Weeks Unlimited <br /> Yoga For Only $39
                 </h1>
                 <div>
@@ -68,7 +68,7 @@ export default function Hero() {
               backgroundPosition: "center right",
             }}
           >
-            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)]"></div>
+            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(0,0,0,0.6)]"></div>
             <div className="max-w-[1380px] justify-center sm:justify-start h-full relative z-50 mx-auto flex flex-row-reverse items-center">
               <div className="p-10">
                 <p className="font-grandHotel antialiased text-xl sm:text-3xl text-amber-500">
@@ -92,7 +92,7 @@ export default function Hero() {
               backgroundPosition: "top center",
             }}
           >
-            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)]"></div>
+            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(0,0,0,0.6)]"></div>
             <div className="max-w-[1380px] justify-center sm:justify-start h-full relative z-50 mx-auto flex  items-center">
               <div className="p-10">
                 <p className="font-grandHotel antialiased text-xl sm:text-3xl text-amber-500">
@@ -116,7 +116,7 @@ export default function Hero() {
               backgroundPosition: "top center",
             }}
           >
-            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)]"></div>
+            <div className="absolute inset-0 bg-[rgba(255,255,255,0.6)] dark:bg-[rgba(0,0,0,0.6)]"></div>
             <div className="max-w-[1380px] justify-center sm:justify-start h-full relative z-50 mx-auto flex flex-row-reverse items-center">
               <div className="p-10">
                 <p className="font-grandHotel antialiased text-xl sm:text-3xl text-amber-500">

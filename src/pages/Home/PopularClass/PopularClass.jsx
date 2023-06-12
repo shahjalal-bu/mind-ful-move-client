@@ -8,19 +8,21 @@ const PopularClass = () => {
   if (loading) return <GlobalSpinner />;
   if (classes && Array.isArray(classes) && classes.length > 0)
     return (
-      <div className="max-w-[1290px] mx-auto py-7 px-5">
-        <SectionHead
-          titile="Choose Our Best Courses"
-          subtitle="Choose Your Level Best"
-          className="sm:mb-10"
-        />
-        <div className="sm:grid grid-cols-3 gap-4">
-          {classes
-            .sort((a, b) => b.enrolledStudents - a.enrolledStudents)
-            .slice(0, 6)
-            ?.map((el) => (
-              <Class key={el._id} data={el} />
-            ))}
+      <div className="dark:bg-slate-700">
+        <div className="max-w-[1290px] mx-auto py-7 px-5 ">
+          <SectionHead
+            titile="Choose Our Best Courses"
+            subtitle="Choose Your Level Best"
+            className="sm:mb-10"
+          />
+          <div className="sm:grid grid-cols-3 gap-4">
+            {classes
+              .sort((a, b) => b.enrolledStudents - a.enrolledStudents)
+              .slice(0, 6)
+              ?.map((el) => (
+                <Class key={el._id} data={el} />
+              ))}
+          </div>
         </div>
       </div>
     );

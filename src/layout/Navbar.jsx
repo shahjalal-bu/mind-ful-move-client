@@ -1,8 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import ActiveLink from "../pages/Shared/ActiveLink/ActiveLink";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
@@ -10,6 +11,20 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const navbarItems = ["Home", "Instructors", "Classes"];
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+    if (localTheme === "dark") {
+      document.querySelector("body").classList.add("dark");
+    } else {
+      document.querySelector("body").classList.remove("dark");
+    }
+  }, [theme]);
 
   //for desktop
   const desktopNavigation = navbarItems.map((item, index) => (
@@ -66,8 +81,8 @@ const Navbar = () => {
   ));
 
   return (
-    <>
-      <nav className="relative  py-4 flex justify-between items-center bg-white container mx-auto px-5 sm:px-20">
+    <div className="bg-white dark:bg-slate-700">
+      <nav className="relative  py-4 flex justify-between items-center container mx-auto px-5 sm:px-20">
         <ActiveLink className="text-3xl font-bold leading-none" to="/">
           <img className="h-14" src={logo} alt="logo" />
         </ActiveLink>
@@ -120,6 +135,21 @@ const Navbar = () => {
                 <img src={currentUser?.photoURL} />
               </div>
             </div>
+            {theme === "light" ? (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("dark")}
+              >
+                <FaMoon />
+              </button>
+            ) : (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("light")}
+              >
+                <FaSun />
+              </button>
+            )}
             <button
               className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
               onClick={logout}
@@ -128,7 +158,22 @@ const Navbar = () => {
             </button>
           </div>
         ) : (
-          <>
+          <div>
+            {theme === "light" ? (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("dark")}
+              >
+                <FaMoon />
+              </button>
+            ) : (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("light")}
+              >
+                <FaSun />
+              </button>
+            )}
             <ActiveLink
               className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
               to="/login"
@@ -141,7 +186,7 @@ const Navbar = () => {
             >
               Sign up
             </ActiveLink>
-          </>
+          </div>
         )}
       </nav>
       <div className={`navbar-menu relative z-50 ${!isOpen && "hidden"}`}>
@@ -172,7 +217,19 @@ const Navbar = () => {
             </button>
           </div>
           <div>
-            <ul>{mobileNavigation}</ul>
+            <ul>
+              {mobileNavigation}
+              {currentUser?.email && (
+                <>
+                  <ActiveLink
+                    className="block p-4 text-sm font-semibold hover:bg-blue-50  rounded"
+                    to="/dashboard"
+                  >
+                    Dashboard
+                  </ActiveLink>
+                </>
+              )}
+            </ul>
           </div>
           <div className="mt-auto">
             {currentUser?.email ? (
@@ -221,7 +278,7 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import axios from "axios";
 // import { useAuth } from "../contexts/AuthContext";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 const useAxios = () => {

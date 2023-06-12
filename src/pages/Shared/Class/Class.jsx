@@ -55,10 +55,10 @@ const Class = ({ data }) => {
     price,
   } = data;
   return (
-    <div className="bg-white rounded shadow-lg  group">
+    <div className="bg-white dark:bg-slate-600 rounded shadow-lg  group">
       <div className="relative">
         <img src={classImage} className="w-full h-60 object-cover  mb-4" />
-        <div className="flex p-1 rounded-xl gap-x-1 shadow shadow-gray-300 absolute -bottom-3 right-4 bg-white z-10">
+        <div className="flex p-1 rounded-xl gap-x-1 shadow shadow-gray-300 absolute -bottom-3 right-4 bg-white dark:bg-slate-950 z-10">
           <img
             src="https://bestwebcreator.com/dhyana/demo/assets/images/cl_teacher_img1.jpg"
             className="w-6 h-6 rounded-full"
