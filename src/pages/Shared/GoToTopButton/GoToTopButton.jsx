@@ -26,7 +26,7 @@ const GoToTopButton = () => {
     <>
       {showButton && (
         <button
-          className="fixed bottom-8 right-8 z-10 p-4 bg-amber-500 text-white rounded-full shadow-lg"
+          className="fixed bottom-8 right-8 z-10 btn btn-warning btn-circle shadow-lg"
           onClick={handleGoToTop}
         >
           <FaArrowUp />
