@@ -9,7 +9,7 @@ import { useAuth } from "../../../contexts/AuthContext";
 import useUserDataWithClasses from "../../../hooks/useUserDataWithClasses";
 import { Link } from "react-router-dom";
 
-const ManageClasses = () => {
+const SelectedClasses = () => {
   const [isOpen, setIsOpen] = useState({}); // Separate isOpen state for each class
   const { currentUser } = useAuth();
   const [user, isLoading, refetch] = useUserDataWithClasses();
@@ -112,4 +112,4 @@ const ManageClasses = () => {
     );
 };
 
-export default ManageClasses;
+export default SelectedClasses;

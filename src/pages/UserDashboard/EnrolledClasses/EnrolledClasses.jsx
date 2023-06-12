@@ -70,37 +70,21 @@ const EnrolledClasses = () => {
               {user?.paymentClasses?.map((el, index) => (
                 <tr key={el?._id}>
                   <th>{index + 1}</th>
-                  <td>{el?.className}</td>
+                  <td>{el?.classData?.className}</td>
                   <td>
                     <img
                       className="w-16 h-16 rounded-md"
-                      src={el?.classImage}
+                      src={el?.classData?.classImage}
                       alt="img"
                     />
                   </td>
-                  <td>{el?.instructorName}</td>
-                  <td>{el?.instructorEmail}</td>
+                  <td>{el?.classData?.instructorName}</td>
+                  <td>{el?.classData?.instructorEmail}</td>
 
-                  <td>{el?.price}</td>
-                  <td>{el?.availableSeats}</td>
-                  <td>
-                    <button
-                      className="btn btn-success btn-sm"
-                      onClick={() =>
-                        deleteClassMutaion({
-                          email: currentUser?.email,
-                          classId: el._id,
-                        })
-                      }
-                    >
-                      Delete
-                    </button>
-                  </td>
-                  <td>
-                    <Link to={`/payment/${el._id}`}>
-                      <button className="btn btn-warning  btn-sm">Pay</button>
-                    </Link>
-                  </td>
+                  <td>{el?.classData?.price}</td>
+                  <td>{el?.transactionId}</td>
+                  <td>{el?.paymentAmount}</td>
+                  <td>{el?.date}</td>
                 </tr>
               ))}
             </tbody>
