@@ -109,7 +109,19 @@ const routes = createBrowserRouter([
       </PrivateRoute>
     ),
     errorElement: <ErrorPage />,
-    children: [...userRoutes, ...instructorRoute, ...adminRoute],
+    children: [
+      {
+        path: "/",
+        element: (
+          <>
+            <h1>I will working on this latter</h1>
+          </>
+        ),
+      },
+      ...userRoutes,
+      ...instructorRoute,
+      ...adminRoute,
+    ],
   },
 ]);
 
