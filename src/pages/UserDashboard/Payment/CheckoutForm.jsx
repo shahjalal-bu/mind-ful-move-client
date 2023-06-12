@@ -6,7 +6,7 @@ import "./CheckoutForm.css";
 import { useAuth } from "../../../contexts/AuthContext";
 import useAxios from "../../../hooks/useAxios";
 
-const CheckoutForm = ({ price, classId }) => {
+const CheckoutForm = ({ classId }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { currentUser } = useAuth();
@@ -17,14 +17,11 @@ const CheckoutForm = ({ price, classId }) => {
   const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
-    console.log("object");
-    if (price > 0) {
-      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
-    }
-  }, [price, axiosSecure]);
+    axiosSecure.post("/create-payment-intent", { classId }).then((res) => {
+      console.log(res.data.clientSecret);
+      setClientSecret(res.data.clientSecret);
+    });
+  }, [classId, axiosSecure]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -78,7 +75,6 @@ const CheckoutForm = ({ price, classId }) => {
         classId: classId,
         email: currentUser?.email,
         transactionId: paymentIntent.id,
-        price,
         date: new Date(),
         quantity: 1,
       };
