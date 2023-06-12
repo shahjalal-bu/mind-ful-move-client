@@ -58,10 +58,11 @@ const useApi = () => {
     return response.data;
   };
 
-  const feedbackClass = async (classId) => {
-    const response = await axiosSecure.patch(
-      `/classes/feedback-class/${classId}`
-    );
+  const feedbackClass = async ({ id, feedback }) => {
+    console.log(id, feedback);
+    const response = await axiosSecure.patch(`/classes/feedback-class/${id}`, {
+      feedback: feedback,
+    });
     return response.data;
   };
 

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import GlobalSpinner from "../components/GlobalSpinner";
-// import Error from "../components/Error";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineCancel, MdOutlineLocalOffer } from "react-icons/md";
@@ -13,9 +11,10 @@ import useClasses from "../../../hooks/useClasses";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useApi from "../../../api/api";
 import { useAuth } from "../../../contexts/AuthContext";
-// import Axios from "../utils/Axios";
+import FeedBack from "./FeedBack";
 
 const ManageClasses = () => {
+  const [isOpen, setIsOpen] = useState({}); // Separate isOpen state for each class
   const { currentUser } = useAuth();
   const [classes, loading, refetch] = useClasses();
   const { aprrovedClass, deniedClass } = useApi();
@@ -38,6 +37,7 @@ const ManageClasses = () => {
       });
     },
   });
+
   if (loading) return <GlobalSpinner />;
   if (classes)
     return (
@@ -45,7 +45,7 @@ const ManageClasses = () => {
         <SectionHead titile="Manage Classes" />
         <div className="divider my-0"></div>
         <div className="overflow-x-auto overflow-y-auto h-[82vh]">
-          <table className="table">
+          <table className="table overflow-x-scroll">
             <thead className="sticky bg-gray-300 top-0 text-black">
               <tr>
                 <th>No.</th>
@@ -114,7 +114,28 @@ const ManageClasses = () => {
                     </button>
                   </td>
                   <td>
-                    <div className="btn btn-info btn-sm">Feedback</div>
+                    <button
+                      className="btn btn-info btn-sm"
+                      onClick={() =>
+                        setIsOpen((prevState) => ({
+                          ...prevState,
+                          [el._id]: true,
+                        }))
+                      }
+                    >
+                      Feedback
+                    </button>
+                    <FeedBack
+                      id={el._id}
+                      isOpen={isOpen[el._id]}
+                      setIsOpen={(value) =>
+                        setIsOpen((prevState) => ({
+                          ...prevState,
+                          [el._id]: value,
+                        }))
+                      }
+                      refetch={refetch}
+                    />
                   </td>
                 </tr>
               ))}
