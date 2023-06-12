@@ -111,7 +111,7 @@ const routes = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: "",
         element: (
           <>
             <h1>I will working on this latter</h1>
