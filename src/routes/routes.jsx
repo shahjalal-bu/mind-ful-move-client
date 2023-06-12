@@ -16,6 +16,7 @@ import ManageUsers from "../pages/AdminDashboard/ManageUsers/ManageUsers";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
+import Payment from "../pages/UserDashboard/Payment/Payment";
 
 //user routes
 export const userRoutes = [
@@ -93,6 +94,10 @@ const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/payment/:classId",
+        element: <Payment />,
       },
     ],
   },

@@ -1,135 +1,114 @@
 import React, { useEffect, useState } from "react";
-// import GlobalSpinner from "../components/GlobalSpinner";
-// import Error from "../components/Error";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { FaSearch } from "react-icons/fa";
-import { MdOutlineCancel, MdOutlineLocalOffer } from "react-icons/md";
-import { CiDiscount1 } from "react-icons/ci";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
-// import Axios from "../utils/Axios";
+import GlobalSpinner from "../../Shared/GlobalSpinner/GlobalSpinner";
+import useClasses from "../../../hooks/useClasses";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useApi from "../../../api/api";
+import { useAuth } from "../../../contexts/AuthContext";
+import useUserDataWithClasses from "../../../hooks/useUserDataWithClasses";
+import { Link } from "react-router-dom";
 
 const EnrolledClasses = () => {
-  //   const handleDelete = async (id) => {
-  //     try {
-  //       const response = await Axios.delete(`/toys/${id}`);
-  //       console.log(response.data);
-  //       //TODO: froned updated needed
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+  const [isOpen, setIsOpen] = useState({});
+  const { currentUser } = useAuth();
+  const [user, isLoading, refetch] = useUserDataWithClasses();
+  const { aprrovedClass, deniedClass } = useApi();
+  const queryClient = useQueryClient();
+  const { deleteClass } = useApi();
 
-  //   const isDelete = async (id) => {
-  //     const res = await Swal.fire({
-  //       title: "Are you sure?",
-  //       text: "You want to delete this product?",
-  //       icon: "warning",
-  //       confirmButtonText: "Delete",
-  //       showCancelButton: true,
-  //     });
-  //     if (res.isConfirmed) {
-  //       handleDelete(id);
-  //     }
-  //   };
-  //   const handleDealsOfTheDay = async (id, dealsOfTheDay) => {
-  //     try {
-  //       const response = await Axios.patch(`toys/deals-of-the-day/${id}`, {
-  //         dealsOfTheDay: true,
-  //       });
-  //       console.log(response.data);
-  //       // Handle response data
-  //     } catch (error) {
-  //       console.error(error);
-  //       // Handle error
-  //     }
-  //   };
+  const { mutate: deleteClassMutaion } = useMutation({
+    mutationFn: deleteClass,
+    onSuccess: (data) => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Successfully delete",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["classes"] });
+      refetch();
+      console.log(data);
+    },
+  });
 
-  //   const isDealsOfDay = async (id, dealsOfTheDay) => {
-  //     const res = await Swal.fire({
-  //       title: "Are you sure?",
-  //       text: "You want to deal of the day this product?",
-  //       icon: "warning",
-  //       confirmButtonText: "YES",
-  //       showCancelButton: true,
-  //     });
-  //     if (res.isConfirmed) {
-  //       handleDealsOfTheDay(id, dealsOfTheDay);
-  //     }
-  //   };
-
-  return (
-    <div className="bg-gray-200 rounded-md p-5">
-      <SectionHead titile="My Enrolled Class" />
-      <div className="divider my-0"></div>
-      <div className="overflow-x-auto overflow-y-auto h-[82vh]">
-        <table className="table">
-          <thead className="sticky bg-gray-300 top-0 text-black">
-            <tr>
-              <th>No.</th>
-              <th>Name</th>
-              <th>Img</th>
-              <th>Seller</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Rating</th>
-              <th>Quantity</th>
-              <th>View</th>
-              <th className="text-center">Function</th>
-            </tr>
-          </thead>
-          <tbody className="">
-            {[
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11,
-              1, 1, 11, 11, 1, 1, 1, 11, 1, 1, 1, 11,
-            ].map((el, index) => (
-              <tr key={el?._id}>
-                <th>{index + 1}</th>
-                <td className="overflow-hidden">
-                  <span className="inline-block w-40 whitespace-normal">
-                    {el?.Name}
-                  </span>
-                </td>
-                <td>
-                  <img className="w-20 h-16" src={el?.Picture} alt="img" />
-                </td>
-                <td>{el?.Seller}</td>
-                <td className="inline-block w-16 whitespace-normal">
-                  {el?.Category}
-                </td>
-                <td>{el?.Price}</td>
-                <td>{el?.Rating}</td>
-                <td>{el?.Qty}</td>
-                <td>
-                  <Link to={`/toy/${el?._id}`}>
-                    <button className="btn btn-primary btn-sm mx-1">
-                      View
-                    </button>
-                  </Link>
-                </td>
-                <td>
-                  <Link to={`/admin/editproduct/${el?._id}`}>
-                    <button className="btn btn-warning btn-sm mx-1">
-                      <AiOutlineEdit />
-                    </button>
-                  </Link>
-                </td>
+  if (isLoading) return <GlobalSpinner />;
+  if (user?.paymentClasses)
+    return (
+      <div className="bg-gray-200 rounded-md p-5">
+        <SectionHead titile="My SelectedClasses Classes" />
+        <div className="divider my-0"></div>
+        <div className="overflow-y-auto h-[82vh]">
+          <table className="table">
+            <thead className="sticky bg-gray-300 top-0 text-black">
+              <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Img</th>
+                <th className="text-center">
+                  Instructor
+                  <br />
+                  Name
+                </th>
+                <th className="text-center">
+                  Instructor
+                  <br />
+                  Email
+                </th>
+                <th>Price</th>
+                <th className="text-center">
+                  Available <br />
+                  Seats
+                </th>
+                <th className="center">Delete</th>
+                <th className="center">Pay</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex justify-center">
-          {/* <button
-                  className="bg-slate-900 rounded-sm py-4 px-2 my-2 w-2/6 text-white"
-                  onClick={() => setAllProductsLimit((prev) => prev + 20)}
-                >
-                  Load More Data
-                </button> */}
+            </thead>
+            <tbody className="">
+              {user?.paymentClasses?.map((el, index) => (
+                <tr key={el?._id}>
+                  <th>{index + 1}</th>
+                  <td>{el?.className}</td>
+                  <td>
+                    <img
+                      className="w-16 h-16 rounded-md"
+                      src={el?.classImage}
+                      alt="img"
+                    />
+                  </td>
+                  <td>{el?.instructorName}</td>
+                  <td>{el?.instructorEmail}</td>
+
+                  <td>{el?.price}</td>
+                  <td>{el?.availableSeats}</td>
+                  <td>
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() =>
+                        deleteClassMutaion({
+                          email: currentUser?.email,
+                          classId: el._id,
+                        })
+                      }
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td>
+                    <Link to={`/payment/${el._id}`}>
+                      <button className="btn btn-warning  btn-sm">Pay</button>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="flex justify-center"></div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default EnrolledClasses;

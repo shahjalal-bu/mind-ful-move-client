@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useApi from "../../../api/api";
 import { useAuth } from "../../../contexts/AuthContext";
 import useUserDataWithClasses from "../../../hooks/useUserDataWithClasses";
+import { Link } from "react-router-dom";
 
 const ManageClasses = () => {
   const [isOpen, setIsOpen] = useState({}); // Separate isOpen state for each class
@@ -38,7 +39,7 @@ const ManageClasses = () => {
   if (user?.selectedClasses)
     return (
       <div className="bg-gray-200 rounded-md p-5">
-        <SectionHead titile="Manage Classes" />
+        <SectionHead titile="My SelectedClasses Classes" />
         <div className="divider my-0"></div>
         <div className="overflow-y-auto h-[82vh]">
           <table className="table">
@@ -97,7 +98,9 @@ const ManageClasses = () => {
                     </button>
                   </td>
                   <td>
-                    <button className="btn btn-warning  btn-sm">Pay</button>
+                    <Link to={`/payment/${el._id}`}>
+                      <button className="btn btn-warning  btn-sm">Pay</button>
+                    </Link>
                   </td>
                 </tr>
               ))}

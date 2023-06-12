@@ -38,6 +38,7 @@ const AddClass = () => {
         setImgUploading(false);
         data.classImage = result.data.url;
         data.instructorName = currentUser.displayName;
+        data.availableSeats = parseInt(data.availableSeats);
         data.instructorPhoto = currentUser.photoUrl;
         data.instructorEmail = currentUser.email;
         data.status = "pending";
@@ -88,7 +89,7 @@ const AddClass = () => {
               {...register("category", { required: true })}
             />
           </div>
-        </div>{" "}
+        </div>
         <div className="flex gap-x-2">
           <div className="mb-4 flex-1">
             <label
