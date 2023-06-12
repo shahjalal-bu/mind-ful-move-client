@@ -3,12 +3,13 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { FaRegEye, FaStar } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 
-const Instructor = () => {
+const Instructor = ({ data }) => {
+  const { displayName, photoURL, email } = data;
   return (
     <div className="bg-white rounded shadow-lg  group">
       <div className="relative">
         <img
-          src="https://images.unsplash.com/photo-1616486436236-f45974d3ba49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8VHJpa29uYXNhbmF8fHx8fHwxNjg2MjQ4NjE0&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080"
+          src={photoURL}
           alt="Yoga"
           className="w-full h-60 object-cover rounded-xl mb-4"
         />
@@ -22,9 +23,9 @@ const Instructor = () => {
       </div>
       <div className="pb-5 px-5">
         <h3 className="text-2xl font-aleo font-bold antialiased text-center">
-          Yoga and Meditation
+          {displayName}
         </h3>
-        <p className="text-gray-500 text-center leading-1">hary@gmail.com</p>
+        <p className="text-gray-500 text-center leading-1">{email}</p>
         <div className="flex justify-center gap-x-3">
           <div className="flex items-center gap-x-2">
             <SiGoogleclassroom className="text-amber-500" />
