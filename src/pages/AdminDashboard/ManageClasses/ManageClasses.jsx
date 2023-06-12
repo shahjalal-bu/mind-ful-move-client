@@ -44,8 +44,8 @@ const ManageClasses = () => {
       <div className="bg-gray-200 rounded-md p-5">
         <SectionHead titile="Manage Classes" />
         <div className="divider my-0"></div>
-        <div className="overflow-x-auto overflow-y-auto h-[82vh]">
-          <table className="table overflow-x-scroll">
+        <div className="overflow-hidden overflow-y-auto h-[82vh]">
+          <table className="table">
             <thead className="sticky bg-gray-300 top-0 text-black">
               <tr>
                 <th>No.</th>
