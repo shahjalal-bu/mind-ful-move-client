@@ -13,7 +13,7 @@ const Dashboard = () => {
       <div className="container mx-auto px-5 sm:px-20 my-4">
         <div className="flex gap-x-5">
           <SideNavigation />
-          <div className="flex-1">
+          <div className="flex-1 overflow-x-auto">
             <Outlet />
           </div>
         </div>

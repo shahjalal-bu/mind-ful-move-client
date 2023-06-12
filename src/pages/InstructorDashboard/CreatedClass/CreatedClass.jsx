@@ -57,7 +57,12 @@ const CreatedClasse = () => {
                   <td>{el?.enrolledStudents}</td>
                   <td>{el?.feedback}</td>
                   <td>
-                    <div className="btn btn-warning btn-sm">Update</div>
+                    <button
+                      disabled={el?.status === "approved"}
+                      className="btn btn-warning btn-sm"
+                    >
+                      Update
+                    </button>
                   </td>
                 </tr>
               ))}

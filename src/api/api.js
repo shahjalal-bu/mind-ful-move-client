@@ -26,7 +26,7 @@ const useApi = () => {
   };
   //get all user
   const getAllClasses = async () => {
-    const response = await axiosSecure.get("/classes");
+    const response = await Axios.get("/classes");
     return response.data;
   };
   //update user role admin
@@ -66,6 +66,15 @@ const useApi = () => {
     return response.data;
   };
 
+  const selectClass = async ({ email, classId }) => {
+    console.log("🚀 ~ file: api.js:70 ~ selectClass ~ classId:", classId);
+    console.log("🚀 ~ file: api.js:70 ~ selectClass ~ email:", email);
+    const response = await axiosSecure.patch(`/users/select-class/${email}`, {
+      classId,
+    });
+    return response.data;
+  };
+
   return {
     uploadImg,
     addClass,
@@ -77,6 +86,7 @@ const useApi = () => {
     aprrovedClass,
     deniedClass,
     feedbackClass,
+    selectClass,
   };
 };
 
