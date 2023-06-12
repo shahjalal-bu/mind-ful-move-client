@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { FaSearch } from "react-icons/fa";
-import { MdOutlineCancel, MdOutlineLocalOffer } from "react-icons/md";
-import { CiDiscount1 } from "react-icons/ci";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
 import GlobalSpinner from "../../Shared/GlobalSpinner/GlobalSpinner";
 import useClasses from "../../../hooks/useClasses";
@@ -20,15 +15,24 @@ const ManageClasses = () => {
   // const [classes, loading, refetch] = useClasses();
   const { aprrovedClass, deniedClass } = useApi();
   const queryClient = useQueryClient();
-  // const { mutate: aprrovedClassMutaion } = useMutation({
-  //   mutationFn: aprrovedClass,
-  //   onSuccess: () => {
-  //     // Invalidate and refetch
-  //     queryClient.invalidateQueries({
-  //       queryKey: ["classes"],
-  //     });
-  //   },
-  // });
+  const { deleteClass } = useApi();
+
+  const { mutate: deleteClassMutaion } = useMutation({
+    mutationFn: deleteClass,
+    onSuccess: (data) => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Successfully delete",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["classes"] });
+      refetch();
+      console.log(data);
+    },
+  });
 
   if (isLoading) return <GlobalSpinner />;
   if (user?.selectedClasses)
@@ -53,15 +57,13 @@ const ManageClasses = () => {
                   <br />
                   Email
                 </th>
-                <th>Status</th>
                 <th>Price</th>
                 <th className="text-center">
                   Available <br />
                   Seats
                 </th>
-                <th className="center">Approved</th>
-                <th className="center">Deny</th>
-                <th className="center">Feedback</th>
+                <th className="center">Delete</th>
+                <th className="center">Pay</th>
               </tr>
             </thead>
             <tbody className="">
@@ -78,30 +80,24 @@ const ManageClasses = () => {
                   </td>
                   <td>{el?.instructorName}</td>
                   <td>{el?.instructorEmail}</td>
-                  <td>
-                    <span className="badge">{el?.status}</span>
-                  </td>
+
                   <td>{el?.price}</td>
                   <td>{el?.availableSeats}</td>
                   <td>
-                    <button className="btn btn-success btn-sm">Approved</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-warning  btn-sm">Denied</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-info btn-sm">Feedback</button>
-                    {/* <FeedBack
-                      id={el._id}
-                      isOpen={isOpen[el._id]}
-                      setIsOpen={(value) =>
-                        setIsOpen((prevState) => ({
-                          ...prevState,
-                          [el._id]: value,
-                        }))
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() =>
+                        deleteClassMutaion({
+                          email: currentUser?.email,
+                          classId: el._id,
+                        })
                       }
-                      refetch={refetch}
-                    /> */}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td>
+                    <button className="btn btn-warning  btn-sm">Pay</button>
                   </td>
                 </tr>
               ))}

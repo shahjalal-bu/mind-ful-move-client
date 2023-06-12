@@ -72,6 +72,12 @@ const useApi = () => {
     });
     return response;
   };
+  const deleteClass = async ({ email, classId }) => {
+    const response = await axiosSecure.patch(`/users/delete-class/${email}`, {
+      classId,
+    });
+    return response;
+  };
 
   return {
     uploadImg,
@@ -85,6 +91,7 @@ const useApi = () => {
     deniedClass,
     feedbackClass,
     selectClass,
+    deleteClass,
   };
 };
 
