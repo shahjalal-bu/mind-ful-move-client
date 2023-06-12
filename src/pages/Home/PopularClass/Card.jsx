@@ -7,6 +7,7 @@ import {
 import useApi from "../../../api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../../contexts/AuthContext";
+import Swal from "sweetalert2";
 
 const Card = ({ data }) => {
   const { currentUser } = useAuth();
@@ -15,11 +16,31 @@ const Card = ({ data }) => {
 
   const { mutate: slecteClassMutaion } = useMutation({
     mutationFn: selectClass,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (data.data.error) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: data.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: data.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["classes"] });
+      console.log(data);
     },
   });
+
   const {
     _id,
     className,

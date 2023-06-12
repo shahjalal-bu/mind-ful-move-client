@@ -67,12 +67,10 @@ const useApi = () => {
   };
 
   const selectClass = async ({ email, classId }) => {
-    console.log("🚀 ~ file: api.js:70 ~ selectClass ~ classId:", classId);
-    console.log("🚀 ~ file: api.js:70 ~ selectClass ~ email:", email);
     const response = await axiosSecure.patch(`/users/select-class/${email}`, {
       classId,
     });
-    return response.data;
+    return response;
   };
 
   return {
