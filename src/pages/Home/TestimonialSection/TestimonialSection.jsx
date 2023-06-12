@@ -28,9 +28,8 @@ const TestimonialSection = () => {
 
   return (
     <section className="bg-gray-100 py-12">
-      <div className="max-w-[1180px] mx-auto px-4">
-        
-        <SectionHead titile="Testimonials" subtitle="What People Say!" />
+      <div className="max-w-[1290px] mx-auto px-4">
+        <SectionHead className="pb-5" titile="Testimonials" subtitle="What People Say!" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial) => (
             <motion.div

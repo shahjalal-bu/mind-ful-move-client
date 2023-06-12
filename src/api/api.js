@@ -21,7 +21,7 @@ const useApi = () => {
   };
   //get all user
   const getAllUser = async () => {
-    const response = await axiosSecure.get("/users");
+    const response = await Axios.get("/users");
     return response.data;
   };
   //get all user
