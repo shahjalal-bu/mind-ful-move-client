@@ -17,6 +17,8 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
 import Payment from "../pages/UserDashboard/Payment/Payment";
+import Overview from "../pages/OverView/OverView";
+import ShowPayment from "../pages/UserDashboard/Payment/ShowPayment";
 
 //user routes
 export const userRoutes = [
@@ -27,6 +29,10 @@ export const userRoutes = [
   {
     path: "my-enrolled-classes",
     element: <EnrolledClasses />,
+  },
+  {
+    path: "my-payment-history",
+    element: <ShowPayment />,
   },
 ];
 
@@ -113,9 +119,9 @@ const routes = createBrowserRouter([
       {
         path: "",
         element: (
-          <>
-            <h1>I will working on this latter</h1>
-          </>
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
         ),
       },
       ...userRoutes,

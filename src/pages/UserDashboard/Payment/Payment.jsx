@@ -9,13 +9,12 @@ const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 const Payment = () => {
   const { classId } = useParams();
   console.log(classId);
-  const total = 10;
-  const price = parseFloat(total.toFixed(2));
+
   return (
     <div>
-      <SectionHead subtitle="please process" titile="Payment"></SectionHead>
+      <SectionHead subtitle="please process" title="Payment"></SectionHead>
       <Elements stripe={stripePromise}>
-        <CheckoutForm price={price} classId={classId}></CheckoutForm>
+        <CheckoutForm classId={classId}></CheckoutForm>
       </Elements>
     </div>
   );

@@ -10,7 +10,7 @@ const ActiveLink = ({ children, to, className }) => {
           ? "pending " + className
           : isActive
           ? "text-sm text-blue-600 font-bold " + className
-          : " " + className
+          : "dark:text-white " + className
       }
     >
       {children}

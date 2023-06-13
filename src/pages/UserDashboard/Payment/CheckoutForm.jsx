@@ -5,6 +5,9 @@ import { useState } from "react";
 import "./CheckoutForm.css";
 import { useAuth } from "../../../contexts/AuthContext";
 import useAxios from "../../../hooks/useAxios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 const CheckoutForm = ({ classId }) => {
   const stripe = useStripe();
@@ -15,6 +18,7 @@ const CheckoutForm = ({ classId }) => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { classId }).then((res) => {
@@ -25,16 +29,13 @@ const CheckoutForm = ({ classId }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!stripe || !elements) {
       return;
     }
-
     const card = elements.getElement(CardElement);
     if (card === null) {
       return;
     }
-
     const { error } = await stripe.createPaymentMethod({
       type: "card",
       card,
@@ -45,8 +46,6 @@ const CheckoutForm = ({ classId }) => {
       setCardError(error.message);
     } else {
       setCardError("");
-      //   console.log("payment method", paymentMethod);
-      //   console.log("payment method", paymentMethod);
     }
 
     setProcessing(true);
@@ -70,7 +69,6 @@ const CheckoutForm = ({ classId }) => {
     setProcessing(false);
     if (paymentIntent.status === "succeeded") {
       setTransactionId(paymentIntent.id);
-      // save payment information to the server
       const payment = {
         classId: classId,
         email: currentUser?.email,
@@ -81,9 +79,16 @@ const CheckoutForm = ({ classId }) => {
       axiosSecure
         .patch(`users/payment/${currentUser?.email}`, payment)
         .then((res) => {
-          console.log(res.data);
-          if (res.data.result.insertedId) {
+          if (res.status === 200) {
             // display confirm
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Successfully Payment",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/dashboard/my-enrolled-classes");
           }
         });
     }
@@ -91,12 +96,14 @@ const CheckoutForm = ({ classId }) => {
 
   return (
     <>
-      <form className="w-2/3 m-8" onSubmit={handleSubmit}>
+      <form className="w-2/3 m-8 mx-auto" onSubmit={handleSubmit}>
         <CardElement
           options={{
             style: {
               base: {
                 fontSize: "16px",
+                padding: "10px",
+
                 color: "#424770",
                 "::placeholder": {
                   color: "#aab7c4",
@@ -108,13 +115,15 @@ const CheckoutForm = ({ classId }) => {
             },
           }}
         />
-        <button
-          className="btn btn-primary btn-sm mt-4"
-          type="submit"
-          disabled={!stripe || !clientSecret || processing}
-        >
-          Pay
-        </button>
+        <div className="flex justify-center">
+          <button
+            className="btn btn-primary btn-md mt-4 mx-auto"
+            type="submit"
+            disabled={!stripe || !clientSecret || processing}
+          >
+            Pay Now <FaArrowAltCircleRight />
+          </button>
+        </div>
       </form>
       {cardError && <p className="text-red-600 ml-8">{cardError}</p>}
       {transactionId && (

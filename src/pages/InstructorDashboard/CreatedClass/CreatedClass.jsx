@@ -17,12 +17,12 @@ const CreatedClasse = () => {
   if (isLoading) return <GlobalSpinner />;
   if (user)
     return (
-      <div className="bg-gray-200 rounded-md p-5">
-        <SectionHead titile="My Created Classes" />
+      <div className="bg-gray-200 dark:bg-slate-950 rounded-md p-5">
+        <SectionHead title="My Created Classes" />
         <div className="divider my-0"></div>
         <div className="overflow-x-auto overflow-y-auto h-[82vh]">
           <table className="table">
-            <thead className="sticky bg-gray-300 top-0 text-black">
+            <thead className="sticky bg-gray-300 dark:bg-black dark:text-white top-0 text-black">
               <tr>
                 <th>No.</th>
                 <th>Name</th>

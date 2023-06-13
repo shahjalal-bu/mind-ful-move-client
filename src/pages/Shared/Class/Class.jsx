@@ -10,12 +10,26 @@ import { useAuth } from "../../../contexts/AuthContext";
 import useApi from "../../../api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import useInstructor from "../../../hooks/useInstructor";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Class = ({ data }) => {
   const { currentUser } = useAuth();
+  const {
+    _id,
+    className,
+    category,
+    classImage,
+    instructorName,
+    classTime,
+    classDay,
+    availableSeats,
+    price,
+  } = data;
   const { selectClass } = useApi();
   const queryClient = useQueryClient();
-
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isInstructor, isInstructorLoading] = useInstructor();
   const { mutate: slecteClassMutaion } = useMutation({
     mutationFn: selectClass,
     onSuccess: (data) => {
@@ -36,26 +50,34 @@ const Class = ({ data }) => {
           timer: 1500,
         });
       }
-
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["classes"] });
       console.log(data);
     },
   });
 
-  const {
-    _id,
-    className,
-    category,
-    classImage,
-    instructorName,
-    classTime,
-    classDay,
-    availableSeats,
-    price,
-  } = data;
+  const handleSelect = () => {
+    if (currentUser?.email) {
+      slecteClassMutaion({ email: currentUser?.email, classId: _id });
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "You have to login for select class!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
   return (
-    <div className="bg-white dark:bg-slate-600 rounded shadow-lg  group">
+    <div
+      className={` rounded shadow-lg  group ${
+        !availableSeats
+          ? "bg-red-400 border-2 border-red-500"
+          : "bg-white dark:bg-slate-900"
+      } `}
+    >
       <div className="relative">
         <img src={classImage} className="w-full h-60 object-cover  mb-4" />
         <div className="flex p-1 rounded-xl gap-x-1 shadow shadow-gray-300 absolute -bottom-3 right-4 bg-white dark:bg-slate-950 z-10">
@@ -69,9 +91,8 @@ const Class = ({ data }) => {
         <div className="w-full h-full justify-center items-center bg-black/50 absolute left-0  hidden group-hover:top-0 group-hover:flex">
           <button
             className="bg-white p-2 rounded-full cursor-pointer"
-            onClick={() =>
-              slecteClassMutaion({ email: currentUser?.email, classId: _id })
-            }
+            disabled={!availableSeats || isAdmin || isInstructor}
+            onClick={handleSelect}
           >
             <AiOutlinePlus size={25} />
           </button>
@@ -88,7 +109,7 @@ const Class = ({ data }) => {
         <h3 className="text-2xl font-aleo font-bold mb-2 antialiased my-2">
           {className}
         </h3>
-        <div className="flex gap-x-3">
+        <div className="flex gap-x-3 truncate">
           <div className="flex items-center gap-x-2">
             <AiOutlineCalendar className="text-amber-500" />
             <span className="text-gray-400 gap-x-2">{classDay}</span>
@@ -103,9 +124,8 @@ const Class = ({ data }) => {
           <div>
             <button
               className="btn btn-md"
-              onClick={() =>
-                slecteClassMutaion({ email: currentUser?.email, classId: _id })
-              }
+              disabled={!availableSeats || isAdmin || isInstructor}
+              onClick={handleSelect}
             >
               Select <BsFillArrowUpRightSquareFill />
             </button>

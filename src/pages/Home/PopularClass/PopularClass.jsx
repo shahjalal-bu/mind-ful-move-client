@@ -8,15 +8,16 @@ const PopularClass = () => {
   if (loading) return <GlobalSpinner />;
   if (classes && Array.isArray(classes) && classes.length > 0)
     return (
-      <div className="dark:bg-slate-700">
+      <div className="dark:bg-slate-800">
         <div className="max-w-[1290px] mx-auto py-7 px-5 ">
           <SectionHead
-            titile="Choose Our Best Courses"
+            title="Choose Our Best Courses"
             subtitle="Choose Your Level Best"
             className="sm:mb-10"
           />
           <div className="sm:grid grid-cols-3 gap-4">
             {classes
+              .filter((el) => el?.status === "approved")
               .sort((a, b) => b.enrolledStudents - a.enrolledStudents)
               .slice(0, 6)
               ?.map((el) => (

@@ -8,9 +8,9 @@ import useApi from "../../../api/api";
 import { useAuth } from "../../../contexts/AuthContext";
 import useUserDataWithClasses from "../../../hooks/useUserDataWithClasses";
 import { Link } from "react-router-dom";
+import moment from "moment/moment";
 
 const EnrolledClasses = () => {
-  const [isOpen, setIsOpen] = useState({});
   const { currentUser } = useAuth();
   const [user, isLoading, refetch] = useUserDataWithClasses();
   const { aprrovedClass, deniedClass } = useApi();
@@ -37,12 +37,12 @@ const EnrolledClasses = () => {
   if (isLoading) return <GlobalSpinner />;
   if (user?.paymentClasses)
     return (
-      <div className="bg-gray-200 rounded-md p-5">
-        <SectionHead titile="My SelectedClasses Classes" />
+      <div className="bg-gray-200 dark:text-white dark:bg-slate-900 rounded-md p-5">
+        <SectionHead title="My SelectedClasses Classes" />
         <div className="divider my-0"></div>
         <div className="overflow-y-auto h-[82vh]">
           <table className="table">
-            <thead className="sticky bg-gray-300 top-0 text-black">
+            <thead className="sticky bg-gray-300 dark:bg-black  top-0 text-black dark:text-white">
               <tr>
                 <th>No.</th>
                 <th>Name</th>
@@ -58,12 +58,9 @@ const EnrolledClasses = () => {
                   Email
                 </th>
                 <th>Price</th>
-                <th className="text-center">
-                  Available <br />
-                  Seats
-                </th>
-                <th className="center">Delete</th>
-                <th className="center">Pay</th>
+                <th className="text-center">Tax ID</th>
+                <th>Paid Amount</th>
+                <th>Paid Date</th>
               </tr>
             </thead>
             <tbody className="">
@@ -84,7 +81,7 @@ const EnrolledClasses = () => {
                   <td>{el?.classData?.price}</td>
                   <td>{el?.transactionId}</td>
                   <td>{el?.paymentAmount}</td>
-                  <td>{el?.date}</td>
+                  <td>{moment(el?.date).format("MMM Do YY")}</td>
                 </tr>
               ))}
             </tbody>

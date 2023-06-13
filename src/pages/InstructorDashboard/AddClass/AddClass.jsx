@@ -55,19 +55,19 @@ const AddClass = () => {
   };
 
   return (
-    <div className="p-10 min-h-[95vh] bg-gray-200 rounded-md mx-auto">
-      <SectionHead titile="ADD A CLASS" />
+    <div className="p-10 min-h-[95vh] bg-gray-200 dark:bg-slate-950 rounded-md mx-auto">
+      <SectionHead title="ADD A CLASS" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-x-2">
           <div className="mb-4 flex-1">
             <label
-              className="block text-gray-700 font-bold mb-2"
+              className="dark:text-white block text-gray-700 font-bold mb-2"
               htmlFor="className"
             >
               Class name
             </label>
             <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="className"
               type="text"
               placeholder="Enter class name"
@@ -76,13 +76,13 @@ const AddClass = () => {
           </div>
           <div className="mb-4 flex-1">
             <label
-              className="block text-gray-700 font-bold mb-2"
+              className="dark:text-white block text-gray-700 font-bold mb-2"
               htmlFor="className"
             >
               Class Category
             </label>
             <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="category"
               type="text"
               placeholder="Enter class category"
@@ -93,13 +93,13 @@ const AddClass = () => {
         <div className="flex gap-x-2">
           <div className="mb-4 flex-1">
             <label
-              className="block text-gray-700 font-bold mb-2"
+              className="dark:text-white block text-gray-700 font-bold mb-2"
               htmlFor="classTime"
             >
               Class Time
             </label>
             <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="classTime"
               type="text"
               placeholder="09-11 am"
@@ -108,13 +108,13 @@ const AddClass = () => {
           </div>
           <div className="mb-4 flex-1">
             <label
-              className="block text-gray-700 font-bold mb-2"
+              className="dark:text-white block text-gray-700 font-bold mb-2"
               htmlFor="classDay"
             >
               Class Day
             </label>
             <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="classDay"
               type="text"
               placeholder="Sun, Tue, Wed"
@@ -130,7 +130,7 @@ const AddClass = () => {
             Class Image
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="classImage"
             type="file"
             accept="image/*"
@@ -140,13 +140,13 @@ const AddClass = () => {
         <div className="flex gap-x-1 flex-1">
           <div className="mb-4 flex-1">
             <label
-              className="block text-gray-700 font-bold mb-2"
+              className="dark:text-white block text-gray-700 font-bold mb-2"
               htmlFor="instructorName"
             >
               Instructor name
             </label>
             <input
-              className="appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="instructorName"
               type="text"
               value={currentUser?.displayName}
@@ -155,13 +155,13 @@ const AddClass = () => {
           </div>
           <div className="mb-4 flex-1">
             <label
-              className="block text-gray-700 font-bold mb-2"
+              className="dark:text-white block text-gray-700 font-bold mb-2"
               htmlFor="instructorEmail"
             >
               Instructor email
             </label>
             <input
-              className="appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 bg-gray-100 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="instructorEmail"
               type="text"
               value={currentUser?.email}
@@ -171,13 +171,13 @@ const AddClass = () => {
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 font-bold mb-2"
+            className="dark:text-white block text-gray-700 font-bold mb-2"
             htmlFor="availableSeats"
           >
             Available seats
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="dark:bg-slate-800 dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="availableSeats"
             type="number"
             placeholder="Enter available seats"
@@ -189,7 +189,7 @@ const AddClass = () => {
             Price
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="dark:bg-slate-800  dark:text-white appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="price"
             type="number"
             placeholder="Enter price"

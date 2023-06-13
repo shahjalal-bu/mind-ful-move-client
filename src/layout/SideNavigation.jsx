@@ -6,7 +6,7 @@ import ActiveLink from "../pages/Shared/ActiveLink/ActiveLink";
 import { useAuth } from "../contexts/AuthContext";
 import { AiOutlineLogout } from "react-icons/ai";
 import { SiGoogleclassroom } from "react-icons/si";
-import { BsPeopleFill } from "react-icons/bs";
+import { BsPaypal, BsPeopleFill } from "react-icons/bs";
 
 import img from "../assets/img";
 import useAdmin from "../hooks/useAdmin";
@@ -23,6 +23,11 @@ const userNavigationData = [
     path: "my-enrolled-classes",
     element: "My Enrolled Classes",
     icon: <FiShoppingBag />,
+  },
+  {
+    path: "my-payment-history",
+    element: "Payment history",
+    icon: <BsPaypal />,
   },
 ];
 //instructor navigation
@@ -93,7 +98,7 @@ const SideNavigation = () => {
     }
   }
   return (
-    <div className=" bg-gray-200 sm:min-h-[95vh]  lg:flex flex-col sm:w-60  p-3 rounded-md ">
+    <div className=" bg-gray-200 dark:bg-slate-950 sm:min-h-[95vh]  lg:flex flex-col sm:w-60  p-3 rounded-md ">
       <div className="mb-4">
         <img src={img.logo} className="w-9/12 mx-auto" alt="" />
       </div>
@@ -114,10 +119,10 @@ const SideNavigation = () => {
             </div>
           </div>
 
-          <div className="text-gray-800 font-bold">
+          <div className="text-gray-800 dark:text-white font-bold">
             {currentUser?.displayName}
           </div>
-          <p className="text-gray-500">{currentUser?.email}</p>
+          <p className="text-gray-500 dark:text-white">{currentUser?.email}</p>
 
           <button className="btn btn-warning btn-circle" onClick={logout}>
             <AiOutlineLogout size={25} />

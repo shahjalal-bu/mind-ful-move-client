@@ -32,7 +32,7 @@ const ManageUsers = () => {
   if (users && Array.isArray(users) && users.length > 0)
     return (
       <div className="bg-gray-200 rounded-md p-5">
-        <SectionHead titile="Manage Users" />
+        <SectionHead title="Manage Users" />
         <div className="divider my-0"></div>
         <div className="overflow-x-auto overflow-y-auto h-[82vh]">
           <table className="table">

@@ -1,6 +1,6 @@
 import React from "react";
 
-const SectionHead = ({ titile, subtitle, className }) => {
+const SectionHead = ({ title, subtitle, className }) => {
   return (
     <div className={`flex flex-col items-center ` + className}>
       {subtitle && (
@@ -9,7 +9,7 @@ const SectionHead = ({ titile, subtitle, className }) => {
         </div>
       )}
       <div className="font-luckiestGuy antialiased text-2xl sm:text-5xl">
-        {titile}
+        {title}
       </div>
     </div>
   );

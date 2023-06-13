@@ -4,9 +4,12 @@ import { FaRegEye, FaStar } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 
 const Instructor = ({ data }) => {
-  const { displayName, photoURL, email } = data;
+  const { displayName, photoURL, email, classes } = data;
+  const totalEnrolledStudent = classes.reduce((prev, curr) => {
+    return prev + curr.enrolledStudents;
+  }, 0);
   return (
-    <div className="bg-white rounded shadow-lg  group">
+    <div className="bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-lg  group">
       <div className="relative">
         <img
           src={photoURL}
@@ -29,7 +32,9 @@ const Instructor = ({ data }) => {
         <div className="flex justify-center gap-x-3">
           <div className="flex items-center gap-x-2">
             <SiGoogleclassroom className="text-amber-500" />
-            <span className="text-gray-400 gap-x-2">10</span>
+            <span className="text-gray-400 gap-x-2">
+              {totalEnrolledStudent}
+            </span>
           </div>
           <div className="flex items-center gap-x-2">
             <FaStar className="text-amber-500" />

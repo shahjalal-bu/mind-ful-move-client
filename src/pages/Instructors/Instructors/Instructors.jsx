@@ -10,10 +10,10 @@ const Instructors = () => {
   if (loading) return <GlobalSpinner />;
   if (instructors && Array.isArray(instructors) && instructors.length > 0)
     return (
-      <>
+      <div className="dark:bg-slate-700">
         <div className="max-w-[1180px] mx-auto py-5 px-5">
           <SectionHead
-            titile="WITH OUR INSTRUCTORS"
+            title="WITH OUR INSTRUCTORS"
             subtitle="get acquainted"
             className="sm:mb-10"
           />
@@ -23,7 +23,7 @@ const Instructors = () => {
             ))}
           </div>
         </div>
-      </>
+      </div>
     );
 };
 

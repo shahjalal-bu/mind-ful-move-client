@@ -38,12 +38,12 @@ const SelectedClasses = () => {
   if (isLoading) return <GlobalSpinner />;
   if (user?.selectedClasses)
     return (
-      <div className="bg-gray-200 rounded-md p-5">
-        <SectionHead titile="My SelectedClasses Classes" />
+      <div className="bg-gray-200 dark:bg-slate-950 dark:text-white rounded-md p-5">
+        <SectionHead title="My Selected Classes" />
         <div className="divider my-0"></div>
         <div className="overflow-y-auto h-[82vh]">
           <table className="table">
-            <thead className="sticky bg-gray-300 top-0 text-black">
+            <thead className="sticky bg-gray-300 dark:bg-black dark:text-white top-0 text-black">
               <tr>
                 <th>No.</th>
                 <th>Name</th>

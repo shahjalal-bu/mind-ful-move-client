@@ -42,7 +42,7 @@ const ManageClasses = () => {
   if (classes)
     return (
       <div className="bg-gray-200 rounded-md p-5">
-        <SectionHead titile="Manage Classes" />
+        <SectionHead title="Manage Classes" />
         <div className="divider my-0"></div>
         <div className="overflow-y-auto h-[82vh]">
           <table className="table">

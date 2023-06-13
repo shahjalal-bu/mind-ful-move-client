@@ -81,7 +81,7 @@ const Navbar = () => {
   ));
 
   return (
-    <div className="bg-white dark:bg-slate-700">
+    <div className="bg-white dark:bg-slate-950">
       <nav className="relative  py-4 flex justify-between items-center container mx-auto px-5 sm:px-20">
         <ActiveLink className="text-3xl font-bold leading-none" to="/">
           <img className="h-14" src={logo} alt="logo" />
@@ -175,7 +175,7 @@ const Navbar = () => {
               </button>
             )}
             <ActiveLink
-              className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
+              className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 dark:bg-amber-500 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
               to="/login"
             >
               Sign In

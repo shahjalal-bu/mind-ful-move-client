@@ -30,7 +30,7 @@
 //       </button>
 //       <dialog id="my_modal_1" className="modal">
 //         <form method="dialog" className="modal-box">
-//           <SectionHead titile="FeedBack" className="my-4" />
+//           <SectionHead title="FeedBack" className="my-4" />
 //           {id}
 //           <input
 //             type="text"
@@ -92,7 +92,7 @@ const FeedBack = ({ id, isOpen, setIsOpen, refetch }) => {
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="bg-white flex justify-center items-center flex-col gap-1 w-1/2 p-6 rounded shadow">
-            <SectionHead className="mb-9" titile="Feedback for class" />
+            <SectionHead className="mb-9" title="Feedback for class" />
             <div className="flex gap-1">
               <input
                 type="text"

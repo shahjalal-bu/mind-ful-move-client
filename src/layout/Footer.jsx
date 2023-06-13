@@ -148,7 +148,7 @@ const Col4 = () => (
 );
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 dark:bg-slate-700 text-gray-500">
+    <footer className="bg-gray-100 dark:bg-slate-900 text-gray-500">
       <FooterLine />
       <div className="max-w-[1380px] mx-auto py-8 px-2">
         <div className="grid sm:grid-cols-4 justify-between gap-2">
@@ -158,7 +158,7 @@ const Footer = () => {
           <Col4 />
         </div>
       </div>
-      <div className="flex items-center justify-center h-16 dark:bg-slate-800  bg-gray-200">
+      <div className="flex items-center justify-center h-16 dark:bg-slate-950  bg-gray-200">
         <p className="text-gray-600 dark:text-white">
           © 2023 MindFulMove. All rights reserved.
         </p>
