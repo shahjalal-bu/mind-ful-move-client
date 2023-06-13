@@ -86,7 +86,22 @@ const Navbar = () => {
         <ActiveLink className="text-3xl font-bold leading-none" to="/">
           <img className="h-14" src={logo} alt="logo" />
         </ActiveLink>
-        <div className="lg:hidden">
+        <div className="lg:hidden flex justify-center items-center">
+          {theme === "light" ? (
+            <button
+              className="btn btn-circle btn-ghost btn-sm"
+              onClick={() => setTheme("dark")}
+            >
+              <FaMoon />
+            </button>
+          ) : (
+            <button
+              className="btn btn-circle btn-ghost btn-sm"
+              onClick={() => setTheme("light")}
+            >
+              <FaSun />
+            </button>
+          )}
           <button
             className="navbar-burger flex items-center text-blue-600 p-3"
             onClick={() => setIsOpen(!isOpen)}

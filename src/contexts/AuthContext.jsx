@@ -14,8 +14,6 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 import Axios from "../utils/Axios";
-import useAxios from "../hooks/useAxios";
-import useApi from "../api/api";
 
 const AuthContext = React.createContext();
 
@@ -24,9 +22,14 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  // const { addUser } = useApi();
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
-  const { addUser } = useApi();
+  const addUser = async (newUser) => {
+    const response = await Axios.post("/users", newUser);
+    return response.data;
+  };
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
