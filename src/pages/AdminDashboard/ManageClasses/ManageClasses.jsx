@@ -14,8 +14,7 @@ import { useAuth } from "../../../contexts/AuthContext";
 import FeedBack from "./FeedBack";
 
 const ManageClasses = () => {
-  const [isOpen, setIsOpen] = useState({}); // Separate isOpen state for each class
-  const { currentUser } = useAuth();
+  const [isOpen, setIsOpen] = useState({}); 
   const [classes, loading, refetch] = useClasses();
   const { aprrovedClass, deniedClass } = useApi();
   const queryClient = useQueryClient();
@@ -142,14 +141,6 @@ const ManageClasses = () => {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-center">
-            {/* <button
-                  className="bg-slate-900 rounded-sm py-4 px-2 my-2 w-2/6 text-white"
-                  onClick={() => setAllProductsLimit((prev) => prev + 20)}
-                >
-                  Load More Data
-                </button> */}
-          </div>
         </div>
       </div>
     );

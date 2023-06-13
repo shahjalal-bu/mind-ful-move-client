@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import GlobalSpinner from "../components/GlobalSpinner";
-// import Error from "../components/Error";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { FaSearch } from "react-icons/fa";
-import { MdOutlineCancel, MdOutlineLocalOffer } from "react-icons/md";
-import { CiDiscount1 } from "react-icons/ci";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import SectionHead from "../../Shared/SectionHead/SectionHead";
 import useUserDataWithClasses from "../../../hooks/useUserDataWithClasses";
 import GlobalSpinner from "../../Shared/GlobalSpinner/GlobalSpinner";
+import ShowFeedBack from "./ShowFeedback";
 
-const CreatedClasse = () => {
-  const [user, isLoading, refetch] = useUserDataWithClasses();
-  console.log(user);
+const CreatedClasses = () => {
+  const [user, isLoading] = useUserDataWithClasses();
+  const [isOpen, setIsOpen] = useState({});
   if (isLoading) return <GlobalSpinner />;
-  if (user)
     return (
       <div className="bg-gray-200 dark:bg-slate-950 rounded-md p-5">
         <SectionHead title="My Created Classes" />
@@ -55,30 +49,48 @@ const CreatedClasse = () => {
                   </td>
                   <td>{el?.price}</td>
                   <td>{el?.enrolledStudents}</td>
-                  <td>{el?.feedback}</td>
                   <td>
                     <button
-                      disabled={el?.status === "approved"}
-                      className="btn btn-warning btn-sm"
+                      className="btn btn-info btn-sm"
+                      disabled={!(el?.status === "denied")}
+                      onClick={() =>
+                        setIsOpen((prevState) => ({
+                          ...prevState,
+                          [el._id]: true,
+                        }))
+                      }
                     >
-                      Update
+                      Feedback
                     </button>
+                    <ShowFeedBack
+                      feedback={el?.feedback}
+                      isOpen={isOpen[el._id]}
+                      setIsOpen={(value) =>
+                        setIsOpen((prevState) => ({
+                          ...prevState,
+                          [el._id]: value,
+                        }))
+                      }
+                    />
+                  </td>
+                  <td>
+                    <Link to={`/dashboard/my-update-class/${el?._id}`}>
+                      <button
+                        disabled={el?.status === "approved"}
+                        className="btn btn-warning btn-sm"
+                      >
+                        Update
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="flex justify-center">
-            {/* <button
-                  className="bg-slate-900 rounded-sm py-4 px-2 my-2 w-2/6 text-white"
-                  onClick={() => setAllProductsLimit((prev) => prev + 20)}
-                >
-                  Load More Data
-                </button> */}
-          </div>
+          
         </div>
       </div>
     );
 };
 
-export default CreatedClasse;
+export default CreatedClasses;

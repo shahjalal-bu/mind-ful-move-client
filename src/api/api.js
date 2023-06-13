@@ -59,10 +59,18 @@ const useApi = () => {
   };
 
   const feedbackClass = async ({ id, feedback }) => {
-    console.log(id, feedback);
     const response = await axiosSecure.patch(`/classes/feedback-class/${id}`, {
       feedback: feedback,
     });
+    return response.data;
+  };
+  const updateClass = async ({ id, data }) => {
+    console.log(id);
+    console.log(data);
+    const response = await axiosSecure.patch(
+      `/classes/update-class/${id}`,
+      data
+    );
     return response.data;
   };
 
@@ -92,6 +100,7 @@ const useApi = () => {
     feedbackClass,
     selectClass,
     deleteClass,
+    updateClass,
   };
 };
 

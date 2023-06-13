@@ -37,10 +37,10 @@ const AddClass = () => {
       .then((result) => {
         setImgUploading(false);
         data.classImage = result.data.url;
-        data.instructorName = currentUser.displayName;
+        data.instructorName = currentUser?.displayName;
         data.availableSeats = parseInt(data.availableSeats);
-        data.instructorPhoto = currentUser.photoUrl;
-        data.instructorEmail = currentUser.email;
+        data.instructorPhoto = currentUser?.photoURL;
+        data.instructorEmail = currentUser?.email;
         data.status = "pending";
         data.rating = 0;
         data.enrolledStudents = 0;

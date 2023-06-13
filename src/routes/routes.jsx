@@ -19,6 +19,7 @@ import InstructorRoute from "./InstructorRoute";
 import Payment from "../pages/UserDashboard/Payment/Payment";
 import Overview from "../pages/OverView/OverView";
 import ShowPayment from "../pages/UserDashboard/Payment/ShowPayment";
+import UpdateClass from "../pages/InstructorDashboard/UpdateClass/UpdateClass";
 
 //user routes
 export const userRoutes = [
@@ -51,6 +52,14 @@ const instructorRoute = [
     element: (
       <InstructorRoute>
         <CreatedClasse />
+      </InstructorRoute>
+    ),
+  },
+  {
+    path: "my-update-class/:classId",
+    element: (
+      <InstructorRoute>
+        <UpdateClass />
       </InstructorRoute>
     ),
   },

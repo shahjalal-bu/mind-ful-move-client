@@ -81,14 +81,7 @@ const ManageUsers = () => {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-center">
-            {/* <button
-                  className="bg-slate-900 rounded-sm py-4 px-2 my-2 w-2/6 text-white"
-                  onClick={() => setAllProductsLimit((prev) => prev + 20)}
-                >
-                  Load More Data
-                </button> */}
-          </div>
+         
         </div>
       </div>
     );

@@ -25,6 +25,7 @@ const Class = ({ data }) => {
     classDay,
     availableSeats,
     price,
+    instructorPhoto,
   } = data;
   const { selectClass } = useApi();
   const queryClient = useQueryClient();
@@ -81,10 +82,7 @@ const Class = ({ data }) => {
       <div className="relative">
         <img src={classImage} className="w-full h-60 object-cover  mb-4" />
         <div className="flex p-1 rounded-xl gap-x-1 shadow shadow-gray-300 absolute -bottom-3 right-4 bg-white dark:bg-slate-950 z-10">
-          <img
-            src="https://bestwebcreator.com/dhyana/demo/assets/images/cl_teacher_img1.jpg"
-            className="w-6 h-6 rounded-full"
-          />
+          <img src={instructorName} className="w-6 h-6 rounded-full" />
           <span>{instructorName}</span>
         </div>
         {/* TODO: transiton not working */}
