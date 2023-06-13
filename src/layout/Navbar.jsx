@@ -87,7 +87,8 @@ const Navbar = () => {
           <img className="h-14" src={logo} alt="logo" />
         </ActiveLink>
         <div className="lg:hidden flex justify-center items-center">
-          {theme === "light" ? (
+          {/* it is  need  */}
+          {/* {theme === "light" ? (
             <button
               className="btn btn-circle btn-ghost btn-sm"
               onClick={() => setTheme("dark")}
@@ -101,7 +102,8 @@ const Navbar = () => {
             >
               <FaSun />
             </button>
-          )}
+          )} */}
+
           <button
             className="navbar-burger flex items-center text-blue-600 p-3"
             onClick={() => setIsOpen(!isOpen)}
@@ -115,6 +117,22 @@ const Navbar = () => {
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
             </svg>
           </button>
+          {currentUser?.email &&
+            (theme === "light" ? (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("dark")}
+              >
+                <FaMoon />
+              </button>
+            ) : (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("light")}
+              >
+                <FaSun />
+              </button>
+            ))}
         </div>
         <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2  lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
           {desktopNavigation}
@@ -150,30 +168,12 @@ const Navbar = () => {
                 <img src={currentUser?.photoURL} />
               </div>
             </div>
-            {theme === "light" ? (
-              <button
-                className="btn btn-circle btn-ghost btn-sm"
-                onClick={() => setTheme("dark")}
-              >
-                <FaMoon />
-              </button>
-            ) : (
-              <button
-                className="btn btn-circle btn-ghost btn-sm"
-                onClick={() => setTheme("light")}
-              >
-                <FaSun />
-              </button>
-            )}
             <button
               className="hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200"
               onClick={logout}
             >
               Logout
             </button>
-          </div>
-        ) : (
-          <div>
             {theme === "light" ? (
               <button
                 className="btn btn-circle btn-ghost btn-sm"
@@ -189,6 +189,9 @@ const Navbar = () => {
                 <FaSun />
               </button>
             )}
+          </div>
+        ) : (
+          <div>
             <ActiveLink
               className="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 dark:bg-amber-500 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200"
               to="/login"
@@ -201,6 +204,21 @@ const Navbar = () => {
             >
               Sign up
             </ActiveLink>
+            {theme === "light" ? (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("dark")}
+              >
+                <FaMoon />
+              </button>
+            ) : (
+              <button
+                className="btn btn-circle btn-ghost btn-sm"
+                onClick={() => setTheme("light")}
+              >
+                <FaSun />
+              </button>
+            )}
           </div>
         )}
       </nav>
@@ -214,6 +232,8 @@ const Navbar = () => {
             >
               <img className="h-14 w-3/4" src={logo} alt="logo" />
             </ActiveLink>
+
+            {/* close button  */}
             <button className="navbar-close" onClick={() => setIsOpen(!isOpen)}>
               <svg
                 className="h-6 w-6 text-gray-400 cursor-pointer hover:text-gray-500"

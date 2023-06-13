@@ -8,7 +8,7 @@ const useInstructor = () => {
   // use axios secure with react query
   const { data: isInstructor, isLoading: isInstructorLoading } = useQuery({
     queryKey: ["isInstructor", currentUser?.email],
-    enabled: !loading,
+    enabled: loading,
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/users/check-instructor/${currentUser?.email}`
