@@ -57,7 +57,7 @@ const PopularInstructor = () => {
             <Swiper
               effect={"coverflow"}
               grabCursor={true}
-              centeredSlides={true}
+              centeredSlides={false}
               slidesPerView={slidesPerView}
               spaceBetween={50}
               coverflowEffect={{
