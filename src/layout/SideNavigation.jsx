@@ -7,10 +7,12 @@ import { useAuth } from "../contexts/AuthContext";
 import { AiOutlineLogout } from "react-icons/ai";
 import { SiGoogleclassroom } from "react-icons/si";
 import { BsPaypal, BsPeopleFill } from "react-icons/bs";
+import GlobalSpinner from "../pages/Shared/GlobalSpinner/GlobalSpinner.jsx";
 
 import img from "../assets/img";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
+import { Link } from "react-router-dom";
 
 //student dashboard
 const userNavigationData = [
@@ -84,7 +86,7 @@ const navigationDataLink = (role) => {
 };
 
 const SideNavigation = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, loading } = useAuth();
   const [isAdmin, isAdminLoading] = useAdmin();
   const [isInstructor, isInstructorLoading] = useInstructor();
   let navContent;
@@ -97,10 +99,14 @@ const SideNavigation = () => {
       navContent = navigationDataLink("student");
     }
   }
+  if (loading || isAdminLoading || isInstructorLoading)
+    return <GlobalSpinner />;
   return (
     <div className=" bg-gray-200 dark:bg-slate-950 sm:min-h-[95vh]  lg:flex flex-col sm:w-60  p-3 rounded-md ">
       <div className="mb-4">
-        <img src={img.logo} className="w-9/12 mx-auto" alt="" />
+        <Link to="/">
+          <img src={img.logo} className="w-9/12 mx-auto" alt="" />
+        </Link>
       </div>
       <div>
         <ActiveLink to="/">

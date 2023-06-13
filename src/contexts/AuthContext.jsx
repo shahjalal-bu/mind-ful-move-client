@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setLoading(false);
+      // setLoading(false);
       const apiCall = async () => {
         if (user?.email) {
           await addUser({
@@ -43,9 +43,10 @@ export function AuthProvider({ children }) {
             email: user?.email,
             role: "student",
           });
-          Axios.post("/jwt", { email: user?.email }).then((res) =>
-            localStorage.setItem("access-token", res.data.token)
-          );
+          Axios.post("/jwt", { email: user?.email }).then((res) => {
+            localStorage.setItem("access-token", res.data.token);
+            setLoading(false);
+          });
         } else {
           localStorage.removeItem("access-token");
         }
@@ -57,6 +58,7 @@ export function AuthProvider({ children }) {
 
   //signup function
   async function signup(email, password, username, photoURL) {
+    setLoading(true);
     const auth = getAuth();
     await createUserWithEmailAndPassword(auth, email, password);
 
@@ -75,6 +77,7 @@ export function AuthProvider({ children }) {
   //login function
 
   function login(email, password) {
+    setLoading(true);
     const auth = getAuth();
     return signInWithEmailAndPassword(auth, email, password);
   }
@@ -82,6 +85,7 @@ export function AuthProvider({ children }) {
   //google sign in  function
 
   function googleSignIn() {
+    setLoading(true);
     const auth = getAuth();
     return signInWithPopup(auth, new GoogleAuthProvider());
   }
@@ -89,6 +93,7 @@ export function AuthProvider({ children }) {
 
   //logout
   function logout() {
+    setLoading(true);
     const auth = getAuth();
     return signOut(auth);
   }
@@ -100,9 +105,5 @@ export function AuthProvider({ children }) {
     logout,
     googleSignIn,
   };
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
